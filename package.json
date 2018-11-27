@@ -1,6 +1,6 @@
 {
-    "name": "create-by-template",
-    "displayName": "create-by-template",
+    "name": "create-item-by-template",
+    "displayName": "Create Item By Template",
     "description": "",
     "version": "0.0.1",
     "engines": {
@@ -10,17 +10,19 @@
         "Other"
     ],
     "activationEvents": [
-        "onCommand:extension.sayHello",
-        "onCommand:extension.goodBoy"
+        "*"
     ],
     "main": "./src/index",
     "contributes": {
         "commands": [{
-            "command": "extension.sayHello",
-            "title": "Hello World"
+            "command": "extension.creatItemByTemplate",
+            "title": "%cmd.creatItemByTemplate.title%"
         }, {
-            "command": "extension.goodBoy",
-            "title": "Hello goodBoy"
+            "command": "extension.editTemplate",
+            "title": "%cmd.editTemplate.title%"
+        }, {
+            "command": "extension.editTemplateWorkspace",
+            "title": "%cmd.editTemplateWorkspace.title%"
         }]
     },
     "scripts": {

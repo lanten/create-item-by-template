@@ -1,9 +1,9 @@
 const vscode = require('vscode')
-const { getTemplate } = require('../utils')
+const { getTemplateConfig } = require('../utils')
 
 function createByTemplate(inputPath) {
-  console.log(getTemplate)
-  const template = getTemplate()
+  const templateConfig = getTemplateConfig()
+  console.log('getTemplateConfig', templateConfig)
 }
 
 

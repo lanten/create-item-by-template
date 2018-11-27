@@ -1,6 +1,6 @@
-# create-by-template README
+# create-item-by-template README
 
-This is the README for your extension "create-by-template". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "create-item-by-template". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 
