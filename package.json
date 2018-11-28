@@ -1,8 +1,10 @@
 {
     "name": "create-item-by-template",
     "displayName": "Create Item By Template",
-    "description": "",
+    "description": "Create a folder quickly using a template",
     "version": "0.0.1",
+    "icon": "images/icon.png",
+    "publisher": "lanten",
     "engines": {
         "vscode": "^1.29.0"
     },
@@ -13,6 +15,26 @@
         "*"
     ],
     "main": "./src/index",
+    "author": {
+        "name": "Lanten",
+        "url": "https://www.lanten.me/",
+        "email": "lanten233@qq.com"
+    },
+    "homepage": "https://github.com/lanten/create-by-template",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/lanten/create-by-template.git"
+    },
+    "bugs": {
+        "url": "https://github.com/lanten/create-by-template/issues",
+        "email": "lanten233@qq.com"
+    },
+    "keywords": [
+        "create-item",
+        "create-item-by-template",
+        "create-folder",
+        "create-file"
+    ],
     "contributes": {
         "commands": [{
             "command": "extension.creatItemByTemplate",
@@ -29,6 +51,7 @@
         "postinstall": "node ./node_modules/vscode/bin/install",
         "test": "node ./node_modules/vscode/bin/test"
     },
+
     "devDependencies": {
         "typescript": "^2.6.1",
         "vscode": "^1.1.21",
