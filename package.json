@@ -2,7 +2,7 @@
     "name": "create-item-by-template",
     "displayName": "Create Item By Template",
     "description": "Create a folder quickly using a template",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "icon": "images/icon.png",
     "publisher": "lanten",
     "engines": {
