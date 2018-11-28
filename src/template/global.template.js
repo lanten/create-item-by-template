@@ -46,5 +46,4 @@ module.exports = {
       ],
     }
   },
-  errfn: 123,
 }

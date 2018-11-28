@@ -1,4 +1,5 @@
 const fs = require('fs')
+const path = require('path')
 const vscode = require('vscode')
 const { execSync } = require('child_process')
 
@@ -61,24 +62,42 @@ function syncExec(params = {}) {
   }
 }
 
+function mkdirRecursive(dir, inputPath = workspacePath, split = '/') {
+  const dirArr = dir.split(split)
+  const dir2 = dirArr.reduce((dirPath, folder) => {
+    const p1 = path.join(inputPath, dirPath)
+    if (!fs.existsSync(p1)) fs.mkdirSync(p1)
+    return dirPath + '/' + folder
+  })
+  const p2 = path.join(inputPath, dir2)
+  if (!fs.existsSync(p2)) fs.mkdirSync(p2)
+}
+
 function getTemplateConfig() {
+
   let templateConfig = require('../template/global.template')
   let workspaceConfig
 
-  const workspaceConfigPath = `${workspacePath}/.vscode/create-item.template.js`
+  delete require.cache[require.resolve('../template/global.template')]
 
-  if (fs.existsSync(workspaceConfigPath)) workspaceConfig = require(workspaceConfigPath)
+  const workspaceConfigPath = path.join(workspacePath, '.vscode/create-item.template.js')
+
+
+  if (fs.existsSync(workspaceConfigPath)) {
+    workspaceConfig = require(workspaceConfigPath)
+    delete require.cache[require.resolve(workspaceConfigPath)]
+  }
 
   return {
-    global: templateConfig,
     workspace: workspaceConfig,
+    global: templateConfig,
   }
 }
 
 
 module.exports = {
   readFile, writeFile,
-  syncExec,
+  syncExec, mkdirRecursive,
   getTemplateConfig,
 
   workspacePath,

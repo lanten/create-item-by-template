@@ -1,16 +1,19 @@
 const vscode = require('vscode')
 const fs = require('fs')
 const path = require('path')
-const { getTemplateConfig, localize, workspacePath, syncExec } = require('../utils')
+const { localize, workspacePath, mkdirRecursive } = require('../utils')
 
 module.exports = vscode.commands.registerCommand('extension.editTemplateWorkspace', function () {
   const vscodeConfigFolderPath = path.join(workspacePath, '.vscode')
   const workspaceConfigPath = path.join(vscodeConfigFolderPath, 'create-item.template.js')
   const templateConfigPath = path.join(__dirname, '../template/new.template.js')
-  // console.warn(vscodeConfigFolderPath)
+
   if (!fs.existsSync(vscodeConfigFolderPath)) {
-    const createFolder = syncExec(`mkdir -p ${vscodeConfigFolderPath}`)
-    if (createFolder) return vscode.window.showErrorMessage('text.error.createFolder', createFolder)
+    try {
+      mkdirRecursive('.vscode')
+    } catch (error) {
+      return vscode.window.showErrorMessage(localize.getLocalize('text.error.createFolder', createFolder))
+    }
   }
 
   if (!fs.existsSync(workspaceConfigPath)) {

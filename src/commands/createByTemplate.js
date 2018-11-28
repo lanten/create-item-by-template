@@ -1,6 +1,6 @@
 const vscode = require('vscode')
 const fs = require('fs')
-const { getTemplateConfig, localize, workspacePath, syncExec } = require('../utils')
+const { getTemplateConfig, localize, workspacePath, mkdirRecursive } = require('../utils')
 
 const templateListPicker = vscode.window.createQuickPick()
 
@@ -34,21 +34,26 @@ function createByTemplate(templateFn, inputPath) {
       try {
         templateObj = templateFn(folderName, folderParams, vscode)
       } catch (error) {
-        return vscode.window.showErrorMessage('text.error.templateFunction.run', error)
+        return vscode.window.showErrorMessage(localize.getLocalize('text.error.templateFunction.run', error))
       }
 
-      if (typeof templateObj !== 'object') return vscode.window.showErrorMessage('text.error.templateConfig')
+      if (typeof templateObj !== 'object') return vscode.window.showErrorMessage(localize.getLocalize('text.error.templateConfig'))
 
-      const createFolder = syncExec(`mkdir -p ${folderPath}`)
-      if (createFolder) return vscode.window.showErrorMessage('text.error.createFolder', createFolder)
+      // return console.log('ok')
+
+      try {
+        mkdirRecursive(folderPath)
+      } catch (error) {
+        return vscode.window.showErrorMessage(localize.getLocalize('text.error.createFolder', error))
+      }
+
 
       for (const fileName in templateObj) {
         const templateArr = templateObj[fileName]
-        if (templateArr.constructor !== Array) return vscode.window.showErrorMessage
-          ('text.error.templateConfig')
+        if (templateArr.constructor !== Array) return vscode.window.showErrorMessage(localize.getLocalize('text.error.templateConfig'))
         const templateStr = templateArr.join('\n')
         const creatRes = fs.writeFileSync(`${workspacePath}/${folderPath}/${fileName}`, templateStr, 'utf-8')
-        if (creatRes) vscode.window.showErrorMessage('text.error.createFile', `${workspacePath}/${folderPath}/${fileName}\n${creatRes}`)
+        if (creatRes) vscode.window.showErrorMessage(localize.getLocalize('text.error.createFile', `${workspacePath}/${folderPath}/${fileName}\n${creatRes}`))
       }
 
       resolve(folderName)
@@ -66,7 +71,7 @@ function showTemplateList() {
   for (const key in templateConfig) {
     const val = templateConfig[key]
     if (val) {
-      const detail = localize.getLocalize('text.templateListItemDetail', localize.getLocalize('text.source.global'))
+      const detail = localize.getLocalize('text.templateListItemDetail', localize.getLocalize(`text.source.${key}`))
       items.push(...Object.keys(val).map(label => {
         return { label, detail, fn: val[label] }
       }))
