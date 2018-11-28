@@ -1,5 +1,23 @@
 {
-  "cmd.creatItemByTemplate.title": "Create: Create Item By Template",
-  "cmd.editTemplate.title": "Create: Edit Template",
-  "cmd.editTemplateWorkspace.title": "Create: Edit Template (Workspace)"
+  "cmd.creatItemByTemplate.title": "Create: Create item by template",
+  "cmd.editTemplateGlobal.title": "Create: Edit template (Global)",
+  "cmd.editTemplateWorkspace.title": "Create: Edit template (Workspace)",
+
+  "text.source.global": "Global",
+  "text.source.workspace": "Workspace",
+  "text.templateListItemDetail": "Template source: {1} config",
+  "text.templateListItemPlaceholder": "Please select a template to start creating",
+  "text.inputBoxPathPlaceholder": "Folder path",
+
+  "text.success.create": "Create: Create {1} successful",
+
+  "text.error.templateFunction": "Create Error: {1} Not a correct function",
+  "text.error.templateFunction.run": "Create Error: Template function failed to run {1}",
+  "text.error.templateSelect": "Create Error: Template selection error",
+  "text.error.inputPath": "Create Error: Path input is incorrect",
+  "text.error.templateConfig": "Create Error: Template configuration is incorrect",
+  "text.error.createFolder": "Create Error: Failed to create folder: {1}",
+  "text.error.createFile": "Create Error: Failed to create file: {1}",
+
+  "text.warning.folderExisted": "Create Warning:  Folder existed {1}"
 }

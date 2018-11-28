@@ -1,4 +1,4 @@
-// You can add any js code in this
+// You can add any js code here
 
 module.exports = {
   'web-project': (name, config) => {
@@ -25,26 +25,4 @@ module.exports = {
       ]
     }
   },
-  miniprogram: (name, config) => {
-    return {
-      [`${name}.wxml`]: [
-        `<view ok="ok">`,
-        `  <text>`,
-        '    hei hei hei',
-        `  </text>`,
-        `</view>`,
-      ],
-      [`${name}.wxss`]: [
-        `.${name} {`,
-        '  ',
-        `}`,
-      ],
-      [`${name}.json`]: [
-        `{`,
-        '  ',
-        `}`,
-      ],
-    }
-  },
-  errfn: 123,
 }

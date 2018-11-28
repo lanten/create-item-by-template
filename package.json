@@ -18,8 +18,8 @@
             "command": "extension.creatItemByTemplate",
             "title": "%cmd.creatItemByTemplate.title%"
         }, {
-            "command": "extension.editTemplate",
-            "title": "%cmd.editTemplate.title%"
+            "command": "extension.editTemplateGlobal",
+            "title": "%cmd.editTemplateGlobal.title%"
         }, {
             "command": "extension.editTemplateWorkspace",
             "title": "%cmd.editTemplateWorkspace.title%"
