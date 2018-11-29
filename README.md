@@ -6,6 +6,8 @@
 
 This extension can help you quickly create a folder using a template
 
+![demo](./images/demo-hd.gif)
+
 ## commands
 
 <kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>p</kbd>
@@ -13,7 +15,3 @@ This extension can help you quickly create a folder using a template
   - Create: Create item by template
   - Create: Edit template (Global)
   - Create: Edit template (Workspace)}
-
-## demo
-
-![demo](./images/demo-hd.gif)
