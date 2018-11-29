@@ -4,7 +4,8 @@ const vscode = require('vscode')
 const { execSync } = require('child_process')
 
 const { workspaceFolders } = vscode.workspace
-const workspacePath = workspaceFolders[0].uri.fsPath
+
+const workspacePath = workspaceFolders ? workspaceFolders[0].uri.fsPath : undefined
 
 /**
  * 读取文件 (文本)

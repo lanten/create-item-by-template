@@ -100,5 +100,6 @@ templateListPicker.onDidAccept(() => {
 })
 
 module.exports = vscode.commands.registerCommand('extension.creatItemByTemplate', function () {
+  if (!workspacePath) return vscode.window.showErrorMessage(localize.getLocalize('text.error.workspacePath'))
   showTemplateList()
 })

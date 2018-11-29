@@ -2,8 +2,10 @@
 
 module.exports = {
   'web-project': (name, config) => {
+
     // If you input path: ppp/xx-xxx?type=1
-    // You will get config: {name:'xx-xxx',type:'1'}
+    // You will get arguments: (xx-xxx,{type:'1'})
+
     const { type } = config
     return {
       [`${name}.html`]: [

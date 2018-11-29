@@ -18,6 +18,7 @@
   "text.error.templateConfig": "Create Error: Template configuration is incorrect",
   "text.error.createFolder": "Create Error: Failed to create folder: {1}",
   "text.error.createFile": "Create Error: Failed to create file: {1}",
+  "text.error.workspacePath": "Create Error: Please open a project first",
 
   "text.warning.folderExisted": "Create Warning:  Folder existed {1}"
 }

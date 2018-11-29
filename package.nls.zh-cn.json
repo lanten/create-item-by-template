@@ -18,6 +18,7 @@
   "text.error.templateConfig": "Create Error: 模板配置不正确",
   "text.error.createFolder": "Create Error: 创建文件夹失败: {1}",
   "text.error.createFile": "Create Error: 创建文件失败: {1}",
+  "text.error.workspacePath": "Create Error: 请先打开一个项目",
 
   "text.warning.folderExisted": "Create Warning:  文件夹已存在 {1}"
 }
