@@ -11,6 +11,7 @@ function createByTemplate(templateFn, inputPath) {
     vscode.window.showInputBox({
       placeHolder: localize.getLocalize('text.inputBoxPathPlaceholder'),
     }).then(inputPath => {
+      if (inputPath === undefined) return
       if (!inputPath) return vscode.window.showErrorMessage(localize.getLocalize('text.error.inputPath'))
 
       const inputPathArr = inputPath.split('/')
@@ -38,8 +39,6 @@ function createByTemplate(templateFn, inputPath) {
       }
 
       if (typeof templateObj !== 'object') return vscode.window.showErrorMessage(localize.getLocalize('text.error.templateConfig'))
-
-      // return console.log('ok')
 
       try {
         mkdirRecursive(folderPath)
