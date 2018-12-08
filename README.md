@@ -5,7 +5,7 @@
 
 This extension can help you quickly create a folder using a template
 
-![demo](./images/demo-hd.gif)
+![0](./images/demo-hd.gif)
 
 ## commands
 

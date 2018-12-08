@@ -7,7 +7,6 @@ const templateListPicker = vscode.window.createQuickPick()
 
 templateListPicker.placeholder = localize.getLocalize('text.templateListItemPlaceholder')
 
-
 function createByTemplate(templateFn, menuPath) {
   return new Promise((resolve, reject) => {
     vscode.window.showInputBox({
@@ -19,8 +18,6 @@ function createByTemplate(templateFn, menuPath) {
         inputPath = `${menuPath}/${inputPath}`
       }
 
-      console.log(inputPath)
-
       if (!inputPath) return vscode.window.showErrorMessage(localize.getLocalize('text.error.inputPath'))
 
       const inputPathArr = inputPath.split('/')
@@ -28,9 +25,7 @@ function createByTemplate(templateFn, menuPath) {
       const folderName = folderParamsArr[0]
       const folderParams = {}
       const folderPath = inputPath.split('?')[0]
-      const folderPathFull = `${workspacePath}/${folderPath}`
-
-      console.log(folderPathFull)
+      const folderPathFull = path.resolve(workspacePath, folderPath)
 
       if (fs.existsSync(folderPathFull)) return vscode.window.showWarningMessage(localize.getLocalize('text.warning.folderExisted', folderPathFull))
 
@@ -57,13 +52,13 @@ function createByTemplate(templateFn, menuPath) {
         return vscode.window.showErrorMessage(localize.getLocalize('text.error.createFolder', error))
       }
 
-
       for (const fileName in templateObj) {
         const templateArr = templateObj[fileName]
         if (templateArr.constructor !== Array) return vscode.window.showErrorMessage(localize.getLocalize('text.error.templateConfig'))
         const templateStr = templateArr.join('\n')
-        const creatRes = fs.writeFileSync(`${workspacePath}/${folderPath}/${fileName}`, templateStr, 'utf-8')
-        if (creatRes) vscode.window.showErrorMessage(localize.getLocalize('text.error.createFile', `${workspacePath}/${folderPath}/${fileName}\n${creatRes}`))
+        const filePath = path.resolve(workspacePath, folderPath, fileName)
+        const creatRes = fs.writeFileSync(filePath, templateStr, 'utf-8')
+        if (creatRes) vscode.window.showErrorMessage(localize.getLocalize('text.error.createFile', `${filePath}\n${creatRes}`))
       }
 
       resolve(folderName)
@@ -90,7 +85,6 @@ function showTemplateList(menuPath) {
 
   templateListPicker.items = items
   templateListPicker.busy = false
-
 }
 
 // inputPathBox.onDidAccept()
@@ -114,19 +108,14 @@ templateListPicker.onDidAccept(() => {
 module.exports = vscode.commands.registerCommand('extension.creatItemByTemplate', function (uri) {
   let menuPath = undefined
 
-  console.log(uri)
-
   if (typeof uri === 'object') {
-
+    menuPath = vscode.workspace.asRelativePath(uri).replace(/\\/g, '/')
     const fstat = fs.statSync(uri.fsPath)
-    console.log(fstat)
-    // menuPath = vscode.workspace.asRelativePath(uri)
-    // if (uri.scheme === 'file') {
+    if (fstat.isFile()) {
+      menuPath = path.dirname(menuPath)
+    }
 
-    // }
-
-    // console.log(menuPath)
-
+    if (path.isAbsolute(menuPath)) menuPath = undefined
   }
 
   if (!workspacePath) return vscode.window.showErrorMessage(localize.getLocalize('text.error.workspacePath'))
