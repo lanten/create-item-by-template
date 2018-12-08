@@ -45,7 +45,12 @@
         }, {
             "command": "extension.editTemplateWorkspace",
             "title": "%cmd.editTemplateWorkspace.title%"
-        }]
+        }],
+        "menus": {
+            "explorer/context": [{
+                "command": "extension.creatItemByTemplate"
+            }]
+        }
     },
     "scripts": {
         "postinstall": "node ./node_modules/vscode/bin/install",

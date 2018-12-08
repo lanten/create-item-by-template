@@ -8,6 +8,7 @@
   "text.templateListItemDetail": "模板来源: {1}配置",
   "text.templateListItemPlaceholder": "选择一个模板开始创建",
   "text.inputBoxPathPlaceholder": "文件夹路径",
+  "text.inputBoxNamePlaceholder": "文件夹名称",
 
   "text.success.create": "Create: 创建 {1} 成功",
 

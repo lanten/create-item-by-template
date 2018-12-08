@@ -1,5 +1,6 @@
 {
   "cmd.creatItemByTemplate.title": "Create: Create item by template",
+
   "cmd.editTemplateGlobal.title": "Create: Edit template (Global)",
   "cmd.editTemplateWorkspace.title": "Create: Edit template (Workspace)",
 
@@ -8,6 +9,7 @@
   "text.templateListItemDetail": "Template source: {1} config",
   "text.templateListItemPlaceholder": "Please select a template to start creating",
   "text.inputBoxPathPlaceholder": "Folder path",
+  "text.inputBoxNamePlaceholder": "Folder name",
 
   "text.success.create": "Create: Create {1} successful",
 

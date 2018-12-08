@@ -1,4 +1,5 @@
 const vscode = require('vscode')
+const path = require('path')
 const fs = require('fs')
 const { getTemplateConfig, localize, workspacePath, mkdirRecursive } = require('../utils')
 
@@ -6,12 +7,20 @@ const templateListPicker = vscode.window.createQuickPick()
 
 templateListPicker.placeholder = localize.getLocalize('text.templateListItemPlaceholder')
 
-function createByTemplate(templateFn, inputPath) {
+
+function createByTemplate(templateFn, menuPath) {
   return new Promise((resolve, reject) => {
     vscode.window.showInputBox({
-      placeHolder: localize.getLocalize('text.inputBoxPathPlaceholder'),
+      placeHolder: menuPath ? localize.getLocalize('text.inputBoxNamePlaceholder') : localize.getLocalize('text.inputBoxPathPlaceholder'),
     }).then(inputPath => {
       if (inputPath === undefined) return
+
+      if (menuPath) {
+        inputPath = `${menuPath}/${inputPath}`
+      }
+
+      console.log(inputPath)
+
       if (!inputPath) return vscode.window.showErrorMessage(localize.getLocalize('text.error.inputPath'))
 
       const inputPathArr = inputPath.split('/')
@@ -20,6 +29,8 @@ function createByTemplate(templateFn, inputPath) {
       const folderParams = {}
       const folderPath = inputPath.split('?')[0]
       const folderPathFull = `${workspacePath}/${folderPath}`
+
+      console.log(folderPathFull)
 
       if (fs.existsSync(folderPathFull)) return vscode.window.showWarningMessage(localize.getLocalize('text.warning.folderExisted', folderPathFull))
 
@@ -60,7 +71,7 @@ function createByTemplate(templateFn, inputPath) {
   }) // Promise end
 }
 
-function showTemplateList() {
+function showTemplateList(menuPath) {
   templateListPicker.show()
   templateListPicker.busy = true
 
@@ -72,7 +83,7 @@ function showTemplateList() {
     if (val) {
       const detail = localize.getLocalize('text.templateListItemDetail', localize.getLocalize(`text.source.${key}`))
       items.push(...Object.keys(val).map(label => {
-        return { label, detail, fn: val[label] }
+        return { label, detail, fn: val[label], menuPath }
       }))
     }
   }
@@ -92,13 +103,32 @@ templateListPicker.onDidAccept(() => {
 
   if (typeof selectItem.fn !== 'function') return vscode.window.showErrorMessage(localize.getLocalize('text.error.templateFunction', selectItem.label))
 
-  createByTemplate(selectItem.fn).then(res => {
+  createByTemplate(selectItem.fn, selectItem.menuPath).then(res => {
     vscode.window.showInformationMessage(localize.getLocalize('text.success.create', res))
     templateListPicker.hide()
   })
 })
 
-module.exports = vscode.commands.registerCommand('extension.creatItemByTemplate', function () {
+
+
+module.exports = vscode.commands.registerCommand('extension.creatItemByTemplate', function (uri) {
+  let menuPath = undefined
+
+  console.log(uri)
+
+  if (typeof uri === 'object') {
+
+    const fstat = fs.statSync(uri.fsPath)
+    console.log(fstat)
+    // menuPath = vscode.workspace.asRelativePath(uri)
+    // if (uri.scheme === 'file') {
+
+    // }
+
+    // console.log(menuPath)
+
+  }
+
   if (!workspacePath) return vscode.window.showErrorMessage(localize.getLocalize('text.error.workspacePath'))
-  showTemplateList()
+  showTemplateList(menuPath)
 })
