@@ -5,7 +5,11 @@
 
 This extension can help you quickly create a folder using a template
 
-![0](./images/demo-hd.gif)
+## Right click to create :
+![1](./images/m-1.gif)
+
+## command to create :
+![2](./images/m-2.gif)
 
 ## commands
 
