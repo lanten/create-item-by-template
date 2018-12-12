@@ -1,4 +1,4 @@
-// You can add any js code here
+// You can add any javascript code here
 
 module.exports = {
   'web-project': (name, config) => {
