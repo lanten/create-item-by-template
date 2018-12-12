@@ -57,4 +57,4 @@ module.exports = {
 
 
 
-> 欢迎使用中文反馈建议及问题 https://github.com/lanten/create-by-template/issues
+> 欢迎使用中文反馈建议及问题 https://github.com/lanten/create-by-template/issues
