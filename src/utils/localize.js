@@ -21,7 +21,7 @@ class Localize {
   }
 
   getLocalize(key) {
-    let res = this.localize[key] || 'no localize text'
+    let res = this.localize[key] || key
     if (arguments.length > 1) {
       const params = Object.assign([], arguments)
 
