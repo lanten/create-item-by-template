@@ -8,3 +8,7 @@
 
 ## Version - 1.0.4 - 2018/12/08
 - Add right click menu
+
+## Version - 1.0.6 - 2019/12/28
+- [ ] Add: Single file module
+- [ ] Fix: Move global-config to global-storage

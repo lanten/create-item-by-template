@@ -7,6 +7,8 @@ const { workspaceFolders } = vscode.workspace
 
 const workspacePath = workspaceFolders ? workspaceFolders[0].uri.fsPath.replace(/\\/g, '/') : undefined
 
+const GLOBAL_TEMPLATE_FILE = "global.template.js"
+
 /**
  * 读取文件 (文本)
  * @param {String} path 文件路径
@@ -63,6 +65,12 @@ function syncExec(params = {}) {
   }
 }
 
+/**
+ * 递归创建路径
+ * @param {string} dir 
+ * @param {string} inputPath 
+ * @param {string} split 
+ */
 function mkdirRecursive(dir, inputPath = workspacePath, split = '/') {
   const dirArr = dir.split(split)
   const dir2 = dirArr.reduce((dirPath, folder) => {
@@ -95,13 +103,33 @@ function getTemplateConfig() {
   }
 }
 
+function getChannelPath() {
+  if (vscode.env.appName.indexOf("Insiders") > 0) {
+    return "Code - Insiders";
+  } else {
+    return "Code";
+  }
+}
+
+function getGlobalStoragePath(filename) {
+
+  let appdata = process.env.APPDATA || (process.platform === "darwin" ? process.env.HOME + "/Library/Application Support" : "/var/local")
+  let channelPath = getChannelPath()
+  const projectFile = path.join(appdata, channelPath, "User", 'globalStorage','')
+  // console.log({ appdata, channelPath, projectFile })
+  return projectFile
+}
+
 
 module.exports = {
   readFile, writeFile,
   syncExec, mkdirRecursive,
   getTemplateConfig,
+  getGlobalStoragePath, getChannelPath,
 
   workspacePath,
+  WORKSPACE_PATH: workspacePath,
+  GLOBAL_TEMPLATE_FILE,
 
   localize: require('./localize'),
 }

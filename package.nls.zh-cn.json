@@ -1,7 +1,11 @@
 {
-  "cmd.creatItemByTemplate.title": "Create: 从模板创建",
+  "cmd.creatItemByTemplate.title": "Create: 从模板创建文件夹",
+  "cmd.creatFileByTemplate.title": "Create: 从模板创建文件",
   "cmd.editTemplateGlobal.title": "Create: 编辑模板 (全局)",
   "cmd.editTemplateWorkspace.title": "Create: 编辑模板 (工作区)",
+
+  "menu.creatItemByTemplate.title": "从模板创建文件夹",
+  "menu.creatFileByTemplate.title": "从模板创建文件",
 
   "text.source.global": "全局",
   "text.source.workspace": "工作区",

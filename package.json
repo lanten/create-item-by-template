@@ -1,67 +1,89 @@
 {
-    "name": "create-item-by-template",
-    "displayName": "Create Item By Template",
-    "description": "Create a folder quickly using a template",
-    "version": "1.0.5",
-    "icon": "images/icon.png",
-    "publisher": "lanten",
-    "engines": {
-        "vscode": "^1.29.0"
-    },
-    "categories": [
-        "Other"
+  "name": "create-item-by-template",
+  "displayName": "Create Item By Template",
+  "description": "Create a folder quickly using a template",
+  "version": "1.0.6",
+  "icon": "images/icon.png",
+  "publisher": "lanten",
+  "engines": {
+    "vscode": "^1.29.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./src/index",
+  "author": {
+    "name": "Lanten",
+    "url": "https://www.lanten.me/",
+    "email": "lanten233@qq.com"
+  },
+  "homepage": "https://github.com/lanten/create-by-template",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lanten/create-by-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lanten/create-by-template/issues",
+    "email": "lanten233@qq.com"
+  },
+  "keywords": [
+    "create-item",
+    "create-item-by-template",
+    "create-folder",
+    "create-file"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "extension.creatItemByTemplate",
+        "title": "%cmd.creatItemByTemplate.title%"
+      },
+      {
+        "command": "extension.creatFileByTemplate",
+        "title": "%cmd.creatFileByTemplate.title%"
+      },
+      {
+        "command": "menu.creatItemByTemplate",
+        "title": "%menu.creatItemByTemplate.title%"
+      },
+      {
+        "command": "menu.creatFileByTemplate",
+        "title": "%menu.creatFileByTemplate.title%"
+      },
+      {
+        "command": "extension.editTemplateGlobal",
+        "title": "%cmd.editTemplateGlobal.title%"
+      },
+      {
+        "command": "extension.editTemplateWorkspace",
+        "title": "%cmd.editTemplateWorkspace.title%"
+      }
     ],
-    "activationEvents": [
-        "*"
-    ],
-    "main": "./src/index",
-    "author": {
-        "name": "Lanten",
-        "url": "https://www.lanten.me/",
-        "email": "lanten233@qq.com"
-    },
-    "homepage": "https://github.com/lanten/create-by-template",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/lanten/create-by-template.git"
-    },
-    "bugs": {
-        "url": "https://github.com/lanten/create-by-template/issues",
-        "email": "lanten233@qq.com"
-    },
-    "keywords": [
-        "create-item",
-        "create-item-by-template",
-        "create-folder",
-        "create-file"
-    ],
-    "contributes": {
-        "commands": [{
-            "command": "extension.creatItemByTemplate",
-            "title": "%cmd.creatItemByTemplate.title%"
-        }, {
-            "command": "extension.editTemplateGlobal",
-            "title": "%cmd.editTemplateGlobal.title%"
-        }, {
-            "command": "extension.editTemplateWorkspace",
-            "title": "%cmd.editTemplateWorkspace.title%"
-        }],
-        "menus": {
-            "explorer/context": [{
-                "command": "extension.creatItemByTemplate"
-            }]
+    "menus": {
+      "explorer/context": [
+        {
+          "group": "1_creatItemByTemplate",
+          "command": "menu.creatItemByTemplate",
+          "when": "explorerResourceIsFolder"
+        },
+        {
+          "group": "1_creatItemByTemplate",
+          "command": "menu.creatFileByTemplate",
+          "when": "explorerResourceIsFolder"
         }
-    },
-    "scripts": {
-        "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "node ./node_modules/vscode/bin/test"
-    },
-
-    "devDependencies": {
-        "typescript": "^2.6.1",
-        "vscode": "^1.1.21",
-        "eslint": "^4.11.0",
-        "@types/node": "^8.10.25",
-        "@types/mocha": "^2.2.42"
+      ]
     }
+  },
+  "scripts": {
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "vscode": "^1.1.21",
+    "@types/node": "^8.10.25",
+    "@types/mocha": "^2.2.42"
+  }
 }

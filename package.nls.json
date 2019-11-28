@@ -1,8 +1,11 @@
 {
   "cmd.creatItemByTemplate.title": "Create: Create item by template",
-
+  "cmd.creatFileByTemplate.title": "Create: Create file by template",
   "cmd.editTemplateGlobal.title": "Create: Edit template (Global)",
   "cmd.editTemplateWorkspace.title": "Create: Edit template (Workspace)",
+
+  "menu.creatItemByTemplate.title": "Create item by template",
+  "menu.creatFileByTemplate.title": "Create file by template",
 
   "text.source.global": "Global",
   "text.source.workspace": "Workspace",

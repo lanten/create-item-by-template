@@ -5,6 +5,7 @@ function activate(context) {
   // 命令已经在package.json文件
   // commandId 参数必须与 package.json 中的命令字段匹配
 
+
   context.subscriptions.push(commands)
 }
 
