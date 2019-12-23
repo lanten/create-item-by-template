@@ -1,0 +1,40 @@
+{
+	"compilerOptions": {
+		"module": "esnext",
+		"target": "esnext",
+		"outDir": "dist",
+		"baseUrl": ".",
+		"sourceMap": true,
+		"rootDir": ".",
+		"strict": true,
+		"importHelpers": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"typeRoots": [
+			"node_modules/@types"
+		],
+		"paths": {
+			"@/*": [
+				"src/*"
+			]
+		},
+		"lib": [
+			"esnext",
+			"es6"
+		]
+	},
+	"include": [
+		"types/**/*.ts",
+		"src/**/*.ts",
+		"package.nls.*.json",
+		"./node_modules/vscode/vscode.d.ts",
+		"./node_modules/vscode/lib/*"
+	]
+	// "exclude": [
+	// 	"node_modules",
+	// 	".vscode-test"
+	// ]
+}

@@ -1,0 +1,7 @@
+.git
+.vscode
+out
+dist
+node_modules
+src
+template

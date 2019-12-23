@@ -2,7 +2,6 @@
 
 module.exports = {
   'web-project': (name, config) => {
-
     // If you input path: ppp/xx-xxx?type=1
     // You will get arguments: (xx-xxx,{type:'1'})
 
@@ -22,30 +21,7 @@ module.exports = {
         `</body>`,
         `</html>`,
       ],
-      [`${name}.js`]: [
-        `console.log('${name} ok')`,
-      ]
-    }
-  },
-  miniprogram: (name, config) => {
-    return {
-      [`${name}.wxml`]: [
-        `<view ok="ok">`,
-        `  <text>`,
-        '    hei hei hei',
-        `  </text>`,
-        `</view>`,
-      ],
-      [`${name}.wxss`]: [
-        `.${name} {`,
-        '  ',
-        `}`,
-      ],
-      [`${name}.json`]: [
-        `{`,
-        '  ',
-        `}`,
-      ],
+      [`${name}.js`]: [`console.log('${name} ok')`],
     }
   },
 }

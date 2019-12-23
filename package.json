@@ -2,7 +2,7 @@
   "name": "create-item-by-template",
   "displayName": "Create Item By Template",
   "description": "Create a folder quickly using a template",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "icon": "images/icon.png",
   "publisher": "lanten",
   "engines": {
@@ -14,7 +14,7 @@
   "activationEvents": [
     "*"
   ],
-  "main": "./src/index",
+  "main": "./dist/main.js",
   "author": {
     "name": "Lanten",
     "url": "https://www.lanten.me/",
@@ -30,60 +30,92 @@
     "email": "lanten233@qq.com"
   },
   "keywords": [
-    "create-item",
-    "create-item-by-template",
-    "create-folder",
-    "create-file"
+    "create item",
+    "create item by template",
+    "create folder",
+    "create file"
   ],
   "contributes": {
     "commands": [
       {
-        "command": "extension.creatItemByTemplate",
-        "title": "%cmd.creatItemByTemplate.title%"
+        "command": "cmd.createFolder",
+        "title": "%cmd.createFolder.title%"
       },
       {
-        "command": "extension.creatFileByTemplate",
-        "title": "%cmd.creatFileByTemplate.title%"
+        "command": "cmd.createFile",
+        "title": "%cmd.createFile.title%"
       },
       {
-        "command": "menu.creatItemByTemplate",
-        "title": "%menu.creatItemByTemplate.title%"
-      },
-      {
-        "command": "menu.creatFileByTemplate",
-        "title": "%menu.creatFileByTemplate.title%"
-      },
-      {
-        "command": "extension.editTemplateGlobal",
+        "command": "cmd.editTemplateGlobal",
         "title": "%cmd.editTemplateGlobal.title%"
       },
       {
-        "command": "extension.editTemplateWorkspace",
+        "command": "cmd.editTemplateWorkspace",
         "title": "%cmd.editTemplateWorkspace.title%"
       }
     ],
     "menus": {
       "explorer/context": [
         {
-          "group": "1_creatItemByTemplate",
-          "command": "menu.creatItemByTemplate",
+          "group": "1_creatItemByTemplate@1",
+          "command": "cmd.createFolder",
           "when": "explorerResourceIsFolder"
         },
         {
-          "group": "1_creatItemByTemplate",
-          "command": "menu.creatFileByTemplate",
+          "group": "1_creatItemByTemplate@2",
+          "command": "cmd.createFile",
           "when": "explorerResourceIsFolder"
         }
       ]
+    },
+    "configuration": {
+      "title": "createItemByTemplate",
+      "properties": {
+        "createItemByTemplate.globalTemplatePath": {
+          "type": "array",
+          "default": "",
+          "description": "%text.config.globalTemplatePath%"
+        },
+        "createItemByTemplate.workspaceTemplatePath": {
+          "type": "string",
+          "description": "%text.config.workspaceTemplatePath%",
+          "default": ""
+        },
+        "createItemByTemplate.defaultFolderTemplate": {
+          "type": "string",
+          "description": "%text.config.defaultFolderTemplate%",
+          "default": ""
+        },
+        "createItemByTemplate.defaultFileTemplate": {
+          "type": "string",
+          "description": "%text.config.defaultFileTemplate%",
+          "default": ""
+        }
+      }
     }
   },
   "scripts": {
-    "postinstall": "node ./node_modules/vscode/bin/install",
-    "test": "node ./node_modules/vscode/bin/test"
+    "vscode:prepublish": "yarn run build",
+    "build": "rm -rf ./dist && webpack --mode production",
+    "compile": "webpack --mode development",
+    "watch": "webpack --mode development --watch",
+    "watch-ts": "tsc -watch -p ./"
   },
   "devDependencies": {
-    "vscode": "^1.1.21",
-    "@types/node": "^8.10.25",
-    "@types/mocha": "^2.2.42"
+    "@types/node": "^10.12.21",
+    "@types/node-fetch": "^2.5.2",
+    "@types/vscode": "^1.38.0",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/parser": "^2.3.1",
+    "eslint": "^6.4.0",
+    "eslint-config-prettier": "^6.3.0",
+    "eslint-loader": "^3.0.1",
+    "eslint-plugin-prettier": "^3.1.1",
+    "prettier": "^1.18.2",
+    "standard-version": "^7.0.0",
+    "ts-loader": "^6.1.2",
+    "typescript": "^3.3.1",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9"
   }
 }
