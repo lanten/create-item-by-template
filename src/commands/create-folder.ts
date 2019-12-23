@@ -1,5 +1,7 @@
 import vscode from 'vscode'
-export function createFolder() {
+
+/** */
+export function createFolder(path: string) {
   console.log('createFolder')
 }
 

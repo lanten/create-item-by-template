@@ -125,7 +125,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vscode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vscode */ "vscode");
 /* harmony import */ var vscode__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vscode__WEBPACK_IMPORTED_MODULE_0__);
 
-function createFolder() {
+/** */
+function createFolder(path) {
     console.log('createFolder');
 }
 function registerCreateFolder() {
@@ -187,7 +188,7 @@ function registerEditTemplateWorkspace() {
 /*!*******************************!*\
   !*** ./src/commands/index.ts ***!
   \*******************************/
-/*! exports provided: createFolder, registerCreateFolder, createFile, registerCreateFile, editTemplateGlobal, registerEditTemplateGlobal, editTemplateWorkspace, registerEditTemplateWorkspace */
+/*! exports provided: createFile, registerCreateFile, editTemplateGlobal, registerEditTemplateGlobal, editTemplateWorkspace, registerEditTemplateWorkspace, createFolder, registerCreateFolder */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
