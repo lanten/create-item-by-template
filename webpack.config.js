@@ -15,6 +15,8 @@ const config = {
   externals: {
     vscode: 'commonjs vscode',
     'ts-node': 'ts-node',
+    templateFile: /^.*\.template\.js$/,
+    // templateFile: /^(\.template\.js)$/i,
   },
 
   node: {
@@ -28,6 +30,8 @@ const config = {
     extensions: ['.ts', '.js'],
   },
   module: {
+    // 解决 Critical dependency: require function is used in a way in which dependencies cannot be statically extracted
+    unknownContextCritical: false,
     rules: [
       {
         test: /\.ts$/,

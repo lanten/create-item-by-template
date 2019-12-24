@@ -64,6 +64,13 @@ declare namespace $ext {
   function mkdirRecursive(dir: string, inputPath?: string, split?: string): void
 
   /**
+   * 动态导入一个 JS 文件
+   * @param modulePath 要导入的文件路径
+   * @param filename 文件名
+   */
+  function requireModule(modulePath: string): any
+
+  /**
    * 打开一个未保存的文档
    * @param docStr
    * @param name

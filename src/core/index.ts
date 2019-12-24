@@ -1,2 +1,2 @@
 export * from './before-create'
-export * from './ger-templates'
+export * from './get-templates'

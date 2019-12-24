@@ -1,5 +1,7 @@
 import fs from 'fs'
 import path from 'path'
+import vm from 'vm'
+import NativeModule from 'module'
 import vscode from 'vscode'
 
 import { WORKSPACE_PATH } from './const'
@@ -19,6 +21,62 @@ export function mkdirRecursive(dir: string, inputPath = WORKSPACE_PATH || '', sp
   })
   const p2 = path.join(inputPath, dir2)
   if (!fs.existsSync(p2)) fs.mkdirSync(p2)
+}
+
+/**
+ * 动态导入一个 JS 文件
+ * @param modulePath 要导入的文件路径
+ * @param filename 文件名
+ */
+export function requireModule(modulePath: string, filename = 'bundle.js') {
+  // let bundle: string
+  // try {
+  //   bundle = fs.readFileSync(modulePath, 'utf-8')
+  // } catch (error) {
+  //   throw new Error(error)
+  // }
+  // // @ts-ignore
+  // const m = new module()
+  // m._compile(bundle, 'bundle.js')
+  // return m
+
+  // ---------------------------------------------------------------------
+
+  const res = require(modulePath)
+  delete require.cache[require.resolve(modulePath)]
+  console.warn(res)
+  return res
+
+  // ---------------------------------------------------------------------
+
+  // const m: any = { module: { exports: {} }, a: '' }
+  // let moduleCode: string
+
+  // try {
+  //   moduleCode = fs.readFileSync(modulePath, 'utf-8')
+  // } catch (error) {
+  //   throw new Error(error)
+  // }
+
+  // // const wrapper = NativeModule.wrap(bundle)
+  // // const script = new vm.Script(bundle, {
+  // //   filename,
+  // //   displayErrors: true,
+  // // })
+
+  // // const script = new vm.Script(wrapper, {
+  // //   filename,
+  // //   displayErrors: true,
+  // // })
+  // // const result = script.runInThisContext() // 此处可以指定代码的执行环境，此 api 在 nodejs 文档中有介绍
+  // // console.warn({ filename, script, ss: result })
+  // // result.call(m.exports, m.exports, require, m)
+
+  // vm.createContext(m)
+  // const res = vm.runInContext(moduleCode, m)
+
+  // console.warn({ res, m, s: m.module, d: m.module.exports.miniprogram, f: m.a })
+  // return m
 }
 
 /**

@@ -52,18 +52,23 @@ class Config {
    * @param fileName 文件名
    */
   getGlobalStoragePath(fileName = ''): string {
-    let appdata =
+    const appPath =
       process.env.APPDATA ||
       (process.platform === 'darwin' ? process.env.HOME + '/Library/Application Support' : '/var/local')
-    let channelPath = this.getChannelPath()
-    const globalStoragePath = path.join(
-      appdata,
-      channelPath,
-      'User',
-      'globalStorage',
-      `${PUBLISHER}.${EXT_NAME}`,
-      fileName
-    )
+    const channelPath = this.getChannelPath()
+
+    const storagePath = path.join(channelPath, 'User', 'globalStorage', `${PUBLISHER}.${EXT_NAME}`)
+    const globalStoragePath = path.join(appPath, storagePath, fileName)
+
+    // 如果不存在，则预创建
+    if (!fs.existsSync(globalStoragePath)) {
+      try {
+        $ext.mkdirRecursive(storagePath, appPath)
+      } catch (error) {
+        vscode.window.showErrorMessage($ext.localize.getLocalize('text.error.createFolder', globalStoragePath))
+      }
+    }
+
     return globalStoragePath
   }
 

@@ -364,9 +364,9 @@ function showTemplateList(initPath) {
 
 /***/ }),
 
-/***/ "./src/core/ger-templates.ts":
+/***/ "./src/core/get-templates.ts":
 /*!***********************************!*\
-  !*** ./src/core/ger-templates.ts ***!
+  !*** ./src/core/get-templates.ts ***!
   \***********************************/
 /*! exports provided: getTemplateConfig */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -376,38 +376,35 @@ __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function($ext) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTemplateConfig", function() { return getTemplateConfig; });
 /* harmony import */ var path__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! path */ "path");
 /* harmony import */ var path__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(path__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! fs */ "fs");
+/* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fs__WEBPACK_IMPORTED_MODULE_1__);
+
 
 /** 获取模板配置 */
 function getTemplateConfig() {
     const globalStoragePath = $ext.config.getGlobalStoragePath();
-    const globalTemplatePath = path__WEBPACK_IMPORTED_MODULE_0___default.a.resolve(globalStoragePath, $ext.TEMPLATE_CONFIG_FILE_NAME);
-    let globalConfig = {};
-    let workspaceConfig = {};
-    // console.log(globalStoragePath, fs.existsSync(globalStoragePath))
-    $ext.mkdirRecursive('/Users/huangyujie/Desktop/test-1111');
-    // if (!fs.existsSync(globalStoragePath)) {
-    //   $ext.mkdirRecursive(globalStoragePath)
-    // }
-    // if (fs.existsSync(globalTemplatePath)) {
-    //   globalConfig = require(globalTemplatePath)
-    //   delete require.cache[require.resolve(globalTemplatePath)]
-    // } else {
-    //   const defaultTemplatePath = path.resolve($ext.EXT_PATH, 'templates/default.template.js')
-    //   const readable = fs.createReadStream(defaultTemplatePath)
-    //   readable.pipe(fs.createWriteStream(globalTemplatePath))
-    //   globalConfig = require(globalTemplatePath)
-    //   delete require.cache[require.resolve(globalTemplatePath)]
-    // }
+    const globalTemplatePath = path__WEBPACK_IMPORTED_MODULE_0___default.a.join(globalStoragePath, $ext.TEMPLATE_CONFIG_FILE_NAME);
+    let globalTemplate = {};
+    let workspaceTemplate = {};
+    console.log(globalStoragePath);
+    // globalTemplate = require('C:\\Users\\lanten\\AppData\\Roaming\\Code\\User\\globalStorage\\lanten.create-item-by-template\\create-item.template.js')
+    if (!fs__WEBPACK_IMPORTED_MODULE_1___default.a.existsSync(globalTemplatePath)) {
+        const defaultTemplatePath = path__WEBPACK_IMPORTED_MODULE_0___default.a.join($ext.EXT_PATH, 'templates/default.template.js');
+        const readable = fs__WEBPACK_IMPORTED_MODULE_1___default.a.createReadStream(defaultTemplatePath);
+        readable.pipe(fs__WEBPACK_IMPORTED_MODULE_1___default.a.createWriteStream(globalTemplatePath));
+    }
+    globalTemplate = $ext.requireModule(globalTemplatePath);
+    console.warn(globalTemplate);
     // if ($ext.WORKSPACE_PATH) {
     //   const workspaceConfigPath = path.join($ext.WORKSPACE_PATH, '.vscode', $ext.TEMPLATE_CONFIG_FILE_NAME)
     //   if (fs.existsSync(workspaceConfigPath)) {
-    //     workspaceConfig = require(workspaceConfigPath)
+    //     workspaceTemplate = require(workspaceConfigPath)
     //     delete require.cache[require.resolve(workspaceConfigPath)]
     //   }
     // }
     return {
-        global: globalConfig,
-        workspace: workspaceConfig,
+        global: globalTemplate,
+        workspace: workspaceTemplate,
     };
 }
 
@@ -429,8 +426,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "showTemplateList", function() { return _before_create__WEBPACK_IMPORTED_MODULE_0__["showTemplateList"]; });
 
-/* harmony import */ var _ger_templates__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ger-templates */ "./src/core/ger-templates.ts");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTemplateConfig", function() { return _ger_templates__WEBPACK_IMPORTED_MODULE_1__["getTemplateConfig"]; });
+/* harmony import */ var _get_templates__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./get-templates */ "./src/core/get-templates.ts");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "getTemplateConfig", function() { return _get_templates__WEBPACK_IMPORTED_MODULE_1__["getTemplateConfig"]; });
 
 
 
@@ -468,6 +465,25 @@ function deactivate() {
 
 /***/ }),
 
+/***/ "./src/utils sync recursive":
+/*!************************!*\
+  !*** ./src/utils sync ***!
+  \************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function webpackEmptyContext(req) {
+	var e = new Error("Cannot find module '" + req + "'");
+	e.code = 'MODULE_NOT_FOUND';
+	throw e;
+}
+webpackEmptyContext.keys = function() { return []; };
+webpackEmptyContext.resolve = webpackEmptyContext;
+module.exports = webpackEmptyContext;
+webpackEmptyContext.id = "./src/utils sync recursive";
+
+/***/ }),
+
 /***/ "./src/utils/config.ts":
 /*!*****************************!*\
   !*** ./src/utils/config.ts ***!
@@ -477,7 +493,7 @@ function deactivate() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vscode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vscode */ "vscode");
+/* WEBPACK VAR INJECTION */(function($ext) {/* harmony import */ var vscode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vscode */ "vscode");
 /* harmony import */ var vscode__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vscode__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! fs */ "fs");
 /* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(fs__WEBPACK_IMPORTED_MODULE_1__);
@@ -533,10 +549,20 @@ class Config {
      * @param fileName 文件名
      */
     getGlobalStoragePath(fileName = '') {
-        let appdata = process.env.APPDATA ||
+        const appPath = process.env.APPDATA ||
             (process.platform === 'darwin' ? process.env.HOME + '/Library/Application Support' : '/var/local');
-        let channelPath = this.getChannelPath();
-        const globalStoragePath = path__WEBPACK_IMPORTED_MODULE_2___default.a.join(appdata, channelPath, 'User', 'globalStorage', `${_const__WEBPACK_IMPORTED_MODULE_3__["PUBLISHER"]}.${_const__WEBPACK_IMPORTED_MODULE_3__["EXT_NAME"]}`, fileName);
+        const channelPath = this.getChannelPath();
+        const storagePath = path__WEBPACK_IMPORTED_MODULE_2___default.a.join(channelPath, 'User', 'globalStorage', `${_const__WEBPACK_IMPORTED_MODULE_3__["PUBLISHER"]}.${_const__WEBPACK_IMPORTED_MODULE_3__["EXT_NAME"]}`);
+        const globalStoragePath = path__WEBPACK_IMPORTED_MODULE_2___default.a.join(appPath, storagePath, fileName);
+        // 如果不存在，则预创建
+        if (!fs__WEBPACK_IMPORTED_MODULE_1___default.a.existsSync(globalStoragePath)) {
+            try {
+                $ext.mkdirRecursive(storagePath, appPath);
+            }
+            catch (error) {
+                vscode__WEBPACK_IMPORTED_MODULE_0___default.a.window.showErrorMessage($ext.localize.getLocalize('text.error.createFolder', globalStoragePath));
+            }
+        }
         return globalStoragePath;
     }
     /**
@@ -577,6 +603,7 @@ class Config {
 const config = new Config();
 /* harmony default export */ __webpack_exports__["default"] = (config);
 
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./src/utils */ "./src/utils/index.ts")))
 
 /***/ }),
 
@@ -671,7 +698,7 @@ function syncExec(paramsSrc) {
 /*!****************************!*\
   !*** ./src/utils/index.ts ***!
   \****************************/
-/*! exports provided: localize, config, log, WORKSPACE_PATH, CONFIG_LIST, EXT_NAME, PUBLISHER, EXT_PATH, LOCAL_CONFIG_PATH, TEMPLATE_CONFIG_FILE_NAME, mkdirRecursive, preSaveDocument, syncExec */
+/*! exports provided: localize, config, log, WORKSPACE_PATH, CONFIG_LIST, EXT_NAME, PUBLISHER, EXT_PATH, LOCAL_CONFIG_PATH, TEMPLATE_CONFIG_FILE_NAME, mkdirRecursive, requireModule, preSaveDocument, syncExec */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -693,6 +720,8 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony import */ var _io__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./io */ "./src/utils/io.ts");
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "mkdirRecursive", function() { return _io__WEBPACK_IMPORTED_MODULE_1__["mkdirRecursive"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "requireModule", function() { return _io__WEBPACK_IMPORTED_MODULE_1__["requireModule"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "preSaveDocument", function() { return _io__WEBPACK_IMPORTED_MODULE_1__["preSaveDocument"]; });
 
@@ -722,12 +751,13 @@ __webpack_require__.r(__webpack_exports__);
 /*!*************************!*\
   !*** ./src/utils/io.ts ***!
   \*************************/
-/*! exports provided: mkdirRecursive, preSaveDocument */
+/*! exports provided: mkdirRecursive, requireModule, preSaveDocument */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "mkdirRecursive", function() { return mkdirRecursive; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requireModule", function() { return requireModule; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "preSaveDocument", function() { return preSaveDocument; });
 /* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! fs */ "fs");
 /* harmony import */ var fs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(fs__WEBPACK_IMPORTED_MODULE_0__);
@@ -757,6 +787,52 @@ function mkdirRecursive(dir, inputPath = _const__WEBPACK_IMPORTED_MODULE_3__["WO
     const p2 = path__WEBPACK_IMPORTED_MODULE_1___default.a.join(inputPath, dir2);
     if (!fs__WEBPACK_IMPORTED_MODULE_0___default.a.existsSync(p2))
         fs__WEBPACK_IMPORTED_MODULE_0___default.a.mkdirSync(p2);
+}
+/**
+ * 动态导入一个 JS 文件
+ * @param modulePath 要导入的文件路径
+ * @param filename 文件名
+ */
+function requireModule(modulePath, filename = 'bundle.js') {
+    // let bundle: string
+    // try {
+    //   bundle = fs.readFileSync(modulePath, 'utf-8')
+    // } catch (error) {
+    //   throw new Error(error)
+    // }
+    // // @ts-ignore
+    // const m = new module()
+    // m._compile(bundle, 'bundle.js')
+    // return m
+    // ---------------------------------------------------------------------
+    const res = __webpack_require__("./src/utils sync recursive")(modulePath);
+    delete __webpack_require__.c[/*require.resolve*/(__webpack_require__("./src/utils sync recursive").resolve(modulePath))];
+    console.warn(res);
+    return res;
+    // ---------------------------------------------------------------------
+    // const m: any = { module: { exports: {} }, a: '' }
+    // let moduleCode: string
+    // try {
+    //   moduleCode = fs.readFileSync(modulePath, 'utf-8')
+    // } catch (error) {
+    //   throw new Error(error)
+    // }
+    // // const wrapper = NativeModule.wrap(bundle)
+    // // const script = new vm.Script(bundle, {
+    // //   filename,
+    // //   displayErrors: true,
+    // // })
+    // // const script = new vm.Script(wrapper, {
+    // //   filename,
+    // //   displayErrors: true,
+    // // })
+    // // const result = script.runInThisContext() // 此处可以指定代码的执行环境，此 api 在 nodejs 文档中有介绍
+    // // console.warn({ filename, script, ss: result })
+    // // result.call(m.exports, m.exports, require, m)
+    // vm.createContext(m)
+    // const res = vm.runInContext(moduleCode, m)
+    // console.warn({ res, m, s: m.module, d: m.module.exports.miniprogram, f: m.a })
+    // return m
 }
 /**
  * 打开一个未保存的文档
