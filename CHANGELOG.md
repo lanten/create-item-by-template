@@ -12,6 +12,6 @@
 ## Version - 2.0.0 - 2019/12/28
 - [ ] Fix: Move global-config to global-storage
 - [ ] Add: Single file module
-- [ ] Add: Settings `globalTemplatePath`, `workspaceTemplatePath`, `defaultFolderTemplate`, `defaultFileTemplate`
+- [ ] Add: Settings `defaultFolderTemplate`, `defaultFileTemplate`
 - [ ] Add: Use default template to create
 - [ ] Typescript Refactoring

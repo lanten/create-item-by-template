@@ -14,10 +14,8 @@
   "text.templateListItemPlaceholder": "选择一个模板开始创建",
   "text.inputBoxPathPlaceholder": "文件夹路径",
   "text.inputBoxNamePlaceholder": "文件夹名称",
-  "text.config.globalTemplatePath": "自定义全局模板路径",
-  "text.config.workspaceTemplatePath": "自定义工作区模板路径",
   "text.config.defaultFolderTemplate": "创建文件夹时默认使用的模板",
-  "text.config.defaultFileTemplate":"创建文件时默认使用的模板",
+  "text.config.defaultFileTemplate": "创建文件时默认使用的模板",
 
   "text.success.create": "Create: 创建 ${1} 成功",
 

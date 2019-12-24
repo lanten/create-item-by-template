@@ -71,16 +71,6 @@
     "configuration": {
       "title": "createItemByTemplate",
       "properties": {
-        "createItemByTemplate.globalTemplatePath": {
-          "type": "array",
-          "default": "",
-          "description": "%text.config.globalTemplatePath%"
-        },
-        "createItemByTemplate.workspaceTemplatePath": {
-          "type": "string",
-          "description": "%text.config.workspaceTemplatePath%",
-          "default": ""
-        },
         "createItemByTemplate.defaultFolderTemplate": {
           "type": "string",
           "description": "%text.config.defaultFolderTemplate%",
