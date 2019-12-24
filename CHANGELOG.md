@@ -10,7 +10,8 @@
 - Add right click menu
 
 ## Version - 2.0.0 - 2019/12/28
-- [ ] Add: Single file module
 - [ ] Fix: Move global-config to global-storage
+- [ ] Add: Single file module
 - [ ] Add: Settings `globalTemplatePath`, `workspaceTemplatePath`, `defaultFolderTemplate`, `defaultFileTemplate`
+- [ ] Add: Use default template to create
 - [ ] Typescript Refactoring
