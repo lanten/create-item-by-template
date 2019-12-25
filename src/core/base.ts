@@ -1,5 +1,17 @@
 import vscode from 'vscode'
 
+/** - interface - start ------------------------------------------------------------------- */
+
+export interface ListPickerConfig {
+  placeholder?: string
+  items?: ListPickerItem[]
+  before?: (next: (items: ListPickerItem[]) => void) => void
+}
+
+export interface ListPickerItem extends vscode.QuickPickItem {}
+
+/** - interface - end --------------------------------------------------------------------- */
+
 /**
  * 打开一个列表选择框
  * @param conf
@@ -25,13 +37,3 @@ export function openListPicker(conf: ListPickerConfig): Promise<ListPickerItem[]
     })
   })
 }
-
-/** - interface ------------------------------------------------------------------- */
-
-export interface ListPickerConfig {
-  placeholder?: string
-  items?: ListPickerItem[]
-  before?: (next: (items: ListPickerItem[]) => void) => void
-}
-
-export interface ListPickerItem extends vscode.QuickPickItem {}

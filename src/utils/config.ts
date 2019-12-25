@@ -2,9 +2,30 @@ import vscode, { workspace } from 'vscode'
 import fs from 'fs'
 import path from 'path'
 
-import { LOCAL_CONFIG_PATH, CONFIG_LIST, EXT_NAME, PUBLISHER, mkdirRecursive, localize, log } from './'
+import {
+  LOCAL_CONFIG_PATH,
+  CONFIG_LIST,
+  EXT_NAME,
+  PUBLISHER,
+  mkdirRecursive,
+  localize,
+  log,
+  CONFIG_GROUP,
+} from './'
 
-const CONFIG_GROUP = 'createItemByTemplate'
+/** - interface - start ------------------------------------------------------------------- */
+
+/** vscode 配置项 */
+export interface CodeConfig {
+  defaultFolderTemplate?: string
+  defaultFileTemplate?: string
+}
+
+export interface ExtConfig extends CodeConfig, LocalConfig {}
+
+export interface LocalConfig {}
+
+/** - interface - end --------------------------------------------------------------------- */
 
 class Config {
   /**
@@ -106,6 +127,4 @@ class Config {
   }
 }
 
-const config = new Config()
-
-export default config
+export const config = new Config()

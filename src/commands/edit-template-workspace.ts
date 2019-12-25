@@ -12,7 +12,6 @@ import {
 } from '../utils'
 
 export function editTemplateWorkspace() {
-  console.log('editTemplateWorkspace')
   const vscodeConfigFolderPath = path.join(WORKSPACE_PATH || '', '.vscode')
   const workspaceConfigPath = path.join(vscodeConfigFolderPath, TEMPLATE_CONFIG_FILE_NAME)
 

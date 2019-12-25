@@ -8,11 +8,6 @@ class Log {
     this.outputChannel = window.createOutputChannel(EXT_NAME)
   }
 
-  // public get outputChannel(): OutputChannel {
-  //   if (!this._channel) this._channel =
-  //   return this._channel
-  // }
-
   public raw(...values: any[]) {
     this.outputChannel.appendLine(values.map(i => i.toString()).join(' '))
   }
@@ -75,5 +70,4 @@ class Log {
   }
 }
 
-const log = new Log()
-export default log
+export const log = new Log()

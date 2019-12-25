@@ -19,6 +19,11 @@ export function registerCreateFolder() {
 
     showTemplateList(initPath).then(res => {
       console.log(res)
+      // if (typeof res.renderer !== 'function') {
+      //   const errorMessage = localize.getLocalize('text.error.templateFunction', res.label)
+      //   log.error(errorMessage, true)
+      //   return Promise.reject(errorMessage)
+      // }
     })
   })
 }

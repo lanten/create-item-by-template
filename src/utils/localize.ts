@@ -37,8 +37,6 @@ class Localize {
 }
 
 /** 多语言 */
-const localize = new Localize()
+export const localize = new Localize()
 
 localize.init(JSON.parse(process.env.VSCODE_NLS_CONFIG || ''))
-
-export default localize

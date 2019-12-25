@@ -10,12 +10,14 @@
   "text.noWorkspace": "需要工作区",
   "text.source.global": "全局",
   "text.source.workspace": "工作区",
-  "text.templateListItemDetail": "模板来源: ${1}配置",
-  "text.templateListItemPlaceholder": "选择一个模板开始创建",
   "text.inputBoxPathPlaceholder": "文件夹路径",
   "text.inputBoxNamePlaceholder": "文件夹名称",
   "text.config.defaultFolderTemplate": "创建文件夹时默认使用的模板",
   "text.config.defaultFileTemplate": "创建文件时默认使用的模板",
+  "text.templateListItemDetail": "模板来源: ${1}配置",
+  "text.templateListItemPlaceholder": "选择一个模板开始创建",
+  "text.templateItemType.folder": "文件夹",
+  "text.templateItemType.file": "文件",
 
   "text.success.create": "Create: 创建 ${1} 成功",
 
