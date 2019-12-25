@@ -16,12 +16,11 @@
 			"outFiles": [
 				"${workspaceFolder}/dist/**/*.js"
 			],
-			// "stopOnEntry": false,
-			// "sourceMaps": true,
-			"preLaunchTask": "npm: compile"
+			// "preLaunchTask": "${defaultBuildTask}"
+			"preLaunchTask": "npm: watch"
 		},
 		{
-			"name": "Run Extension Watch",
+			"name": "Run Extension Webpack",
 			"type": "extensionHost",
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
@@ -33,7 +32,22 @@
 			],
 			// "stopOnEntry": false,
 			// "sourceMaps": true,
-			"preLaunchTask": "npm: watch"
+			"preLaunchTask": "npm: webpack-compile"
+		},
+		{
+			"name": "Run Extension Webpack Watch",
+			"type": "extensionHost",
+			"request": "launch",
+			"runtimeExecutable": "${execPath}",
+			"args": [
+				"--extensionDevelopmentPath=${workspaceFolder}"
+			],
+			"outFiles": [
+				"${workspaceFolder}/dist/**/*.js"
+			],
+			// "stopOnEntry": false,
+			// "sourceMaps": true,
+			"preLaunchTask": "npm: webpack-watch"
 		},
 		{
 			"name": "Run Extension TSC",

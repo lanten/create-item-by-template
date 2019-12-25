@@ -1,11 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 import vscode, { Uri } from 'vscode'
-import { getTemplateConfig } from '@/core'
+
+import { localize } from '../utils'
+import { getTemplateConfig } from './get-templates'
 
 /** init -------------------------------------------------------------- */
 const templateListPicker = vscode.window.createQuickPick()
-templateListPicker.placeholder = $ext.localize.getLocalize('text.templateListItemPlaceholder')
+templateListPicker.placeholder = localize.getLocalize('text.templateListItemPlaceholder')
 
 /** ------------------------------------------------------------------- */
 
@@ -45,9 +47,9 @@ export function showTemplateList(initPath?: string) {
     // for (const key in templateConfig) {
     //   const val = templateConfig[key]
     //   if (val) {
-    //     const detail = $ext.localize.getLocalize(
+    //     const detail = localize.getLocalize(
     //       'text.templateListItemDetail',
-    //       $ext.localize.getLocalize(`text.source.${key}`)
+    //       localize.getLocalize(`text.source.${key}`)
     //     )
     //     items.push(
     //       ...Object.keys(val).map(label => {

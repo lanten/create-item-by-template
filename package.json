@@ -14,7 +14,7 @@
   "activationEvents": [
     "*"
   ],
-  "main": "./dist/main.js",
+  "main": "./dist/src/main.js",
   "author": {
     "name": "Lanten",
     "url": "https://www.lanten.me/",
@@ -85,15 +85,14 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "yarn run build",
+    "vscode:prepublish": "yarn run compile",
     "build": "rm -rf ./dist && webpack --mode production",
-    "compile": "webpack --mode development",
-    "watch": "webpack --mode development --watch",
-    "watch-ts": "tsc -watch -p ./"
+    "webpack-compile": "webpack --mode development",
+    "webpack-watch": "webpack --mode development --watch",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
   },
   "devDependencies": {
-    "@types/node": "^10.12.21",
-    "@types/node-fetch": "^2.5.2",
     "@types/vscode": "^1.38.0",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
@@ -102,10 +101,6 @@
     "eslint-loader": "^3.0.1",
     "eslint-plugin-prettier": "^3.1.1",
     "prettier": "^1.18.2",
-    "standard-version": "^7.0.0",
-    "ts-loader": "^6.1.2",
-    "typescript": "^3.3.1",
-    "webpack": "^4.41.0",
-    "webpack-cli": "^3.3.9"
+    "typescript": "^3.6.4"
   }
 }

@@ -1,4 +1,4 @@
-declare namespace $ext {
+declare namespace $ext1 {
   /** 工作区路径 */
   const WORKSPACE_PATH: string | undefined
   /** 插件设置 */

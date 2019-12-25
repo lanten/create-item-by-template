@@ -1,6 +1,7 @@
 import vscode from 'vscode'
 
-import { getMenuRelativePath } from '@/core'
+import { WORKSPACE_PATH, localize } from '../utils'
+import { getMenuRelativePath } from '../core'
 
 export function createFile() {
   console.log('createFile')
@@ -9,8 +10,8 @@ export function createFile() {
 /** 注册命令 */
 export function registerCreateFile() {
   vscode.commands.registerCommand('cmd.createFile', uri => {
-    if (!$ext.WORKSPACE_PATH) {
-      return vscode.window.showErrorMessage($ext.localize.getLocalize('text.error.workspacePath'))
+    if (!WORKSPACE_PATH) {
+      return vscode.window.showErrorMessage(localize.getLocalize('text.error.workspacePath'))
     }
 
     const initPath = getMenuRelativePath(uri)

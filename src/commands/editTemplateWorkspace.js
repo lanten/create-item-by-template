@@ -3,7 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const { localize, workspacePath, mkdirRecursive } = require('../utils')
 
-module.exports = vscode.commands.registerCommand('extension.editTemplateWorkspace', function () {
+module.exports = vscode.commands.registerCommand('extension.editTemplateWorkspace', function() {
   const vscodeConfigFolderPath = path.join(workspacePath, '.vscode')
   const workspaceConfigPath = path.join(vscodeConfigFolderPath, 'create-item.template.js')
   const templateConfigPath = path.join(__dirname, '../template/new.template.js')
@@ -17,9 +17,9 @@ module.exports = vscode.commands.registerCommand('extension.editTemplateWorkspac
   }
 
   if (!fs.existsSync(workspaceConfigPath)) {
-    readable = fs.createReadStream(templateConfigPath);
-    writable = fs.createWriteStream(workspaceConfigPath);
-    readable.pipe(writable);
+    readable = fs.createReadStream(templateConfigPath)
+    writable = fs.createWriteStream(workspaceConfigPath)
+    readable.pipe(writable)
   }
 
   vscode.workspace.openTextDocument(workspaceConfigPath).then(doc => {

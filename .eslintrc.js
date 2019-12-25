@@ -36,11 +36,12 @@ module.exports = {
     'prefer-rest-params': 0,
     // 'prefer-const': 0,
 
-    '@typescript-eslint/no-unused-vars': 0,
+    // '@typescript-eslint/no-unused-vars': 0,
     '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/no-explicit-any': 0, // 禁用 any 类型
     '@typescript-eslint/ban-ts-ignore': 0,
     '@typescript-eslint/explicit-function-return-type': 0,
     '@typescript-eslint/no-var-requires': 0,
+    '@typescript-eslint/no-empty-interface': 0,
   },
 }
