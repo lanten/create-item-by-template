@@ -2,8 +2,7 @@ import vscode, { workspace } from 'vscode'
 import fs from 'fs'
 import path from 'path'
 
-import { LOCAL_CONFIG_PATH, CONFIG_LIST, EXT_NAME, PUBLISHER, mkdirRecursive, localize } from './'
-import log from './log'
+import { LOCAL_CONFIG_PATH, CONFIG_LIST, EXT_NAME, PUBLISHER, mkdirRecursive, localize, log } from './'
 
 const CONFIG_GROUP = 'createItemByTemplate'
 
@@ -63,9 +62,10 @@ class Config {
     // 如果不存在，则预创建
     if (!fs.existsSync(globalStoragePath)) {
       try {
+        log.success(localize.getLocalize('text.success.create', 'GlobalStorage'))
         mkdirRecursive(storagePath, appPath)
       } catch (error) {
-        vscode.window.showErrorMessage(localize.getLocalize('text.error.createFolder', globalStoragePath))
+        log.error(localize.getLocalize('text.error.createFolder', globalStoragePath), true)
       }
     }
 

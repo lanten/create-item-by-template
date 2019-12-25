@@ -1,7 +1,13 @@
 import path from 'path'
 import fs from 'fs'
 
-import { config, TEMPLATE_CONFIG_FILE_NAME, EXT_PATH, WORKSPACE_PATH, requireModule } from '../utils'
+import {
+  TEMPLATE_CONFIG_FILE_NAME,
+  DEFAULT_TEMPLATE_FILE_PATH,
+  WORKSPACE_PATH,
+  config,
+  requireModule,
+} from '../utils'
 
 /** 获取模板配置 */
 export function getTemplateConfig() {
@@ -11,24 +17,17 @@ export function getTemplateConfig() {
   let globalTemplate = {}
   let workspaceTemplate = {}
 
-  console.log(globalStoragePath)
-
-  // globalTemplate = require('C:\\Users\\lanten\\AppData\\Roaming\\Code\\User\\globalStorage\\lanten.create-item-by-template\\create-item.template.js')
-
   if (!fs.existsSync(globalTemplatePath)) {
-    const defaultTemplatePath = path.join(EXT_PATH, 'templates/default.template.js')
-    const readable = fs.createReadStream(defaultTemplatePath)
+    const readable = fs.createReadStream(DEFAULT_TEMPLATE_FILE_PATH)
     readable.pipe(fs.createWriteStream(globalTemplatePath))
+  } else {
+    globalTemplate = requireModule(globalTemplatePath)
   }
-
-  globalTemplate = requireModule(globalTemplatePath)
-  console.warn(globalTemplate)
 
   if (WORKSPACE_PATH) {
     const workspaceConfigPath = path.join(WORKSPACE_PATH, '.vscode', TEMPLATE_CONFIG_FILE_NAME)
     if (fs.existsSync(workspaceConfigPath)) {
-      workspaceTemplate = require(workspaceConfigPath)
-      delete require.cache[require.resolve(workspaceConfigPath)]
+      workspaceTemplate = requireModule(workspaceConfigPath)
     }
   }
 

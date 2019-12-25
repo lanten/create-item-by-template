@@ -12,8 +12,10 @@ export const EXT_NAME = packageJson.name
 /** 插件发布者 */
 export const PUBLISHER = packageJson.publisher
 /** 插件本体路径 */
-export const EXT_PATH = path.join(__dirname, '../')
+export const EXT_PATH = path.join(__dirname, '../../../')
 /** 插件私有配置文件路径 */
 export const LOCAL_CONFIG_PATH = path.join(EXT_PATH, 'local.config.json')
 /** 模板配置文件名 */
 export const TEMPLATE_CONFIG_FILE_NAME = 'create-item.template.js'
+/** 默认模板配置文件路径 */
+export const DEFAULT_TEMPLATE_FILE_PATH = path.join(EXT_PATH, 'templates/new.template.js')

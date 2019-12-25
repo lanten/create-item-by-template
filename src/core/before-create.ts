@@ -2,14 +2,8 @@ import fs from 'fs'
 import path from 'path'
 import vscode, { Uri } from 'vscode'
 
-import { localize } from '../utils'
+import { localize, log } from '../utils'
 import { getTemplateConfig } from './get-templates'
-
-/** init -------------------------------------------------------------- */
-const templateListPicker = vscode.window.createQuickPick()
-templateListPicker.placeholder = localize.getLocalize('text.templateListItemPlaceholder')
-
-/** ------------------------------------------------------------------- */
 
 /**
  * 获取右键菜单相对路径
@@ -34,48 +28,53 @@ export function getMenuRelativePath(uri: Uri) {
  * 显示模板列表
  * @param initPath 初始路径
  */
-export function showTemplateList(initPath?: string) {
+export function showTemplateList(initPath?: string): Promise<SelectItem> {
   return new Promise((resolve, reject) => {
+    const templateListPicker = vscode.window.createQuickPick()
+    templateListPicker.placeholder = localize.getLocalize('text.templateListItemPlaceholder')
     templateListPicker.show()
     templateListPicker.busy = true
 
     const templateConfig = getTemplateConfig()
 
-    console.log({ templateConfig })
+    const items = []
+    for (const key in templateConfig) {
+      const val = templateConfig[key]
+      if (val) {
+        const type = localize.getLocalize(`text.source.${key}`)
+        const detail = localize.getLocalize('text.templateListItemDetail', type)
 
-    // const items = []
-    // for (const key in templateConfig) {
-    //   const val = templateConfig[key]
-    //   if (val) {
-    //     const detail = localize.getLocalize(
-    //       'text.templateListItemDetail',
-    //       localize.getLocalize(`text.source.${key}`)
-    //     )
-    //     items.push(
-    //       ...Object.keys(val).map(label => {
-    //         return { label, detail, fn: val[label], initPath }
-    //       })
-    //     )
-    //   }
-    // }
+        console.log({ key, type, detail })
+        items.push(
+          ...Object.keys(val).map(label => {
+            return { label, detail, fn: val[label], initPath }
+          })
+        )
+      }
+    }
 
-    // templateListPicker.items = items
-    // templateListPicker.busy = false
+    templateListPicker.items = items
+    templateListPicker.busy = false
 
-    // templateListPicker.onDidAccept(() => {
-    //   const selectItem = templateListPicker.selectedItems[0]
+    templateListPicker.onDidAccept(() => {
+      const selectItem: SelectItem = templateListPicker.selectedItems[0]
 
-    //   if (!selectItem) return vscode.window.showErrorMessage(localize.getLocalize('text.error.templateSelect'))
+      if (!selectItem) return log.error(localize.getLocalize('text.error.templateSelect'), true)
 
-    //   if (typeof selectItem.fn !== 'function')
-    //     return vscode.window.showErrorMessage(
-    //       localize.getLocalize('text.error.templateFunction', selectItem.label)
-    //     )
-
-    //   createByTemplate(selectItem.fn, selectItem.menuPath).then(res => {
-    //     vscode.window.showInformationMessage(localize.getLocalize('text.success.create', res))
-    //     templateListPicker.hide()
-    //   })
-    // })
+      if (typeof selectItem.fn !== 'function') {
+        const errorMessage = localize.getLocalize('text.error.templateFunction', selectItem.label)
+        log.error(errorMessage, true)
+        reject(errorMessage)
+      } else {
+        resolve(selectItem)
+      }
+    })
   })
+}
+
+/** - interface ------------------------------------------------------------------- */
+
+/** 模板列表选项 */
+export interface SelectItem extends vscode.QuickPickItem {
+  fn?: Function
 }

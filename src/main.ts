@@ -10,10 +10,6 @@ import {
 export function activate(ctx: vscode.ExtensionContext) {
   global.ctx = ctx
 
-  // if (!$ext.WORKSPACE_PATH) {
-  //   vscode.window.showWarningMessage($ext.localize.getLocalize('text.noWorkspace'))
-  // }
-
   registerCreateFolder()
   registerCreateFile()
   registerEditTemplateGlobal()

@@ -1,6 +1,6 @@
 import vscode from 'vscode'
 
-import { localize, WORKSPACE_PATH } from '../utils'
+import { localize, log, WORKSPACE_PATH } from '../utils'
 import { getMenuRelativePath, showTemplateList } from '../core'
 
 /** 创建文件夹 */
@@ -12,13 +12,13 @@ export function createFolder(path: string) {
 export function registerCreateFolder() {
   vscode.commands.registerCommand('cmd.createFolder', uri => {
     if (!WORKSPACE_PATH) {
-      return vscode.window.showErrorMessage(localize.getLocalize('text.error.workspacePath'))
+      return log.warn(localize.getLocalize('text.error.workspacePath'), true)
     }
 
     const initPath = getMenuRelativePath(uri)
 
-    showTemplateList(initPath)
-
-    console.log(initPath)
+    showTemplateList(initPath).then(res => {
+      console.log(res)
+    })
   })
 }

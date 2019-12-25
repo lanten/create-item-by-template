@@ -19,26 +19,54 @@ class Log {
 
   public log(message: string, intend = 0) {
     this.outputChannel.appendLine(`${'\t'.repeat(intend)}${message}`)
+    return message
   }
 
-  public info(message: string, intend = 0) {
-    this.log(`[INFO] - ${Date.now()} : ${message}`, intend)
+  /**
+   * 记录日志
+   * @param message
+   * @param prompt 是否弹窗提示
+   * @param intend
+   */
+  public info(message: string, prompt = false, intend = 0) {
+    if (prompt) window.showInformationMessage(`${EXT_NAME} Info: \n ${message}`)
+    return this.log(`[INFO] - ${Date.now()} : ${message}`, intend)
   }
 
-  public success(message: string, intend = 0) {
-    this.log(`[SUCCESS] - ${Date.now()} : ${message}`, intend)
+  /**
+   * 记录成功日志
+   * @param message
+   * @param prompt 是否弹窗提示
+   * @param intend
+   */
+  public success(message: string, prompt = false, intend = 0) {
+    if (prompt) window.showInformationMessage(`${EXT_NAME} Success: \n ${message}`)
+    return this.log(`[SUCCESS] - ${Date.now()} : ${message}`, intend)
   }
 
-  public warn(message: string, intend = 0) {
-    this.log(`[WARN] - ${Date.now()} : ${message}`, intend)
+  /**
+   * 记录警告日志
+   * @param message
+   * @param prompt 是否弹窗提示
+   * @param intend
+   */
+  public warn(message: string, prompt = false, intend = 0) {
+    if (prompt) window.showWarningMessage(`${EXT_NAME} Warning: \n ${message}`)
+    return this.log(`[WARN] - ${Date.now()} : ${message}`, intend)
   }
 
+  /**
+   * 记录错误日志
+   * @param err 错误信息
+   * @param prompt 是否弹窗提示
+   * @param intend 缩进
+   */
   public error(err: Error | string, prompt = true, intend = 0) {
-    if (prompt) window.showErrorMessage(`${EXT_NAME} Error: ${err.toString()}`)
+    if (prompt) window.showErrorMessage(`${EXT_NAME} Error: \n ${err.toString()}`)
     if (typeof err === 'string') {
-      this.log(`[ERROR] - ${Date.now()} : ${err}`, intend)
+      return this.log(`[ERROR] - ${Date.now()} : ${err}`, intend)
     } else {
-      this.log(`[ERROR] - ${Date.now()} : ${err.name}: ${err.message}\n${err.stack}`, intend)
+      return this.log(`[ERROR] - ${Date.now()} : ${err.name}: ${err.message}\n${err.stack}`, intend)
     }
   }
 
