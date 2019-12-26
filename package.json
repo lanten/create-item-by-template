@@ -80,6 +80,11 @@
           "type": "string",
           "description": "%text.config.defaultFileTemplate%",
           "default": ""
+        },
+        "createItemByTemplate.rememberLastSelection": {
+          "type": "boolean",
+          "description": "%text.config.rememberLastSelection%",
+          "default": false
         }
       }
     }

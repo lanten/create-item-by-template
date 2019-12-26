@@ -27,6 +27,7 @@ export function editTemplateWorkspace() {
     const readable = fs.createReadStream(DEFAULT_TEMPLATE_FILE_PATH)
     const writable = fs.createWriteStream(workspaceConfigPath)
     readable.pipe(writable)
+    log.info(localize.getLocalize('text.success.create', workspaceConfigPath))
   }
 
   vscode.workspace.openTextDocument(workspaceConfigPath).then(doc => {

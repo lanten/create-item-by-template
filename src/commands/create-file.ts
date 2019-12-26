@@ -1,7 +1,7 @@
 import vscode from 'vscode'
 
 import { WORKSPACE_PATH, localize, log } from '../utils'
-import { getMenuRelativePath, expandTemplateItems, showTemplateList } from '../core'
+import { getMenuRelativePath, expandTemplateItems, openTemplateList } from '../core'
 
 export function createFile() {
   console.log('createFile')
@@ -18,7 +18,7 @@ export function registerCreateFile() {
 
     const templateItems = expandTemplateItems('files', { initPath })
 
-    showTemplateList(templateItems).then(res => {
+    openTemplateList(templateItems).then(res => {
       console.log(res)
       // if (typeof res.renderer !== 'function') {
       //   const errorMessage = localize.getLocalize('text.error.templateFunction', res.label)

@@ -6,7 +6,7 @@ const { workspaceFolders } = vscode.workspace
 /** 工作区路径 */
 export const WORKSPACE_PATH = workspaceFolders ? workspaceFolders[0].uri.fsPath.replace(/\\/g, '/') : undefined
 /** 插件设置 */
-export const CONFIG_LIST = ['defaultFolderTemplate', 'defaultFileTemplate']
+export const CONFIG_LIST = ['defaultFolderTemplate', 'defaultFileTemplate', 'rememberLastSelection']
 /** 插件名称 */
 export const EXT_NAME = packageJson.name
 /** 插件发布者 */

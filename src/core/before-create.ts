@@ -1,8 +1,8 @@
 import fs from 'fs'
 import path from 'path'
-import vscode, { Uri } from 'vscode'
+import vscode, { Uri, ThemeIcon } from 'vscode'
 
-import { localize } from '../utils'
+import { localize, icons } from '../utils'
 import { openListPicker, TemplateItem } from './'
 
 /**
@@ -28,7 +28,7 @@ export function getMenuRelativePath(uri: Uri) {
  * 显示模板列表
  * @param initPath 初始路径
  */
-export async function showTemplateList(items: Array<TemplateItem>): Promise<TemplateItem> {
+export async function openTemplateList(items: Array<TemplateItem>): Promise<TemplateItem> {
   return openListPicker({
     placeholder: localize.getLocalize('text.templateListItemPlaceholder'),
     items,
@@ -38,5 +38,51 @@ export async function showTemplateList(items: Array<TemplateItem>): Promise<Temp
     } else {
       return Promise.reject(res)
     }
+  })
+}
+
+export async function openInputPathPicker(item: TemplateItem, menuPath?: string) {
+  return new Promise(resolve => {
+    const inputBox = vscode.window.createInputBox()
+
+    inputBox.placeholder = menuPath
+      ? localize.getLocalize('text.inputBoxNamePlaceholder')
+      : localize.getLocalize('text.inputBoxPathPlaceholder')
+
+    inputBox.title = localize.getLocalize('text.inputBoxNamePrompt', item.label)
+
+    // const actionButton = new Button({ light: icons.folder.light, dark: icons.folder.dark }, 'hahahah')
+
+    inputBox.ignoreFocusOut = true
+    inputBox.step = 1
+    inputBox.totalSteps = 22
+    // inputBox.validationMessage = 'err asdasd'
+
+    inputBox.buttons = [
+      {
+        // iconPath: {
+        //   dark: vscode.Uri.parse(
+        //     'https://raw.githubusercontent.com/microsoft/vscode-icons/master/icons/dark/edit.svg'
+        //   ),
+        //   light: vscode.Uri.parse(
+        //     'https://raw.githubusercontent.com/microsoft/vscode-icons/master/icons/dark/edit.svg'
+        //   ),
+        // },
+        // iconPath: Uri.file(global.ctx.asAbsolutePath('assets/icons/test.png')),
+        iconPath: Uri.file(global.ctx.asAbsolutePath('assets/icons/folder.dark.svg')),
+        // iconPath: {
+        //   light: icons.folder.light,
+        //   dark: icons.folder.light,
+        // },
+        tooltip: '重新选择模板',
+      },
+    ]
+
+    inputBox.onDidTriggerButton(res => {
+      console.log(res)
+    })
+
+    inputBox.show()
+    resolve('')
   })
 }

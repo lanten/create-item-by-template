@@ -90,7 +90,7 @@ export function handleTemplateConfig(conf: TemplateConfig): Required<TemplateCon
 }
 
 /**
- * 展开模板
+ * 展开模板列表
  * @param type
  * @param assignConfig
  */

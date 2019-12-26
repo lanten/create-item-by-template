@@ -1,4 +1,4 @@
-import vscode from 'vscode'
+import vscode, { QuickInputButton, Uri } from 'vscode'
 
 /** - interface - start ------------------------------------------------------------------- */
 
@@ -9,6 +9,8 @@ export interface ListPickerConfig {
 }
 
 export interface ListPickerItem extends vscode.QuickPickItem {}
+
+export interface InputPickerConfig {}
 
 /** - interface - end --------------------------------------------------------------------- */
 

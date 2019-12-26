@@ -17,8 +17,9 @@ import {
 
 /** vscode 配置项 */
 export interface CodeConfig {
-  defaultFolderTemplate?: string
-  defaultFileTemplate?: string
+  defaultFolderTemplate: string
+  defaultFileTemplate: string
+  rememberLastSelection: boolean
 }
 
 export interface ExtConfig extends CodeConfig, LocalConfig {}
@@ -44,7 +45,7 @@ class Config {
       const settingsKey = `${CONFIG_GROUP}.${configKey}`
       resConfig[configKey] = workspace.getConfiguration().get(settingsKey)
     })
-    return resConfig
+    return resConfig as CodeConfig
   }
 
   /**
@@ -83,7 +84,7 @@ class Config {
     // 如果不存在，则预创建
     if (!fs.existsSync(globalStoragePath)) {
       try {
-        log.success(localize.getLocalize('text.success.create', 'GlobalStorage'))
+        log.info(localize.getLocalize('text.success.create', 'GlobalStorage'))
         mkdirRecursive(storagePath, appPath)
       } catch (error) {
         log.error(localize.getLocalize('text.error.createFolder', globalStoragePath), true)

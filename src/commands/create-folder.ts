@@ -1,7 +1,13 @@
 import vscode from 'vscode'
 
-import { localize, log, WORKSPACE_PATH } from '../utils'
-import { getMenuRelativePath, showTemplateList, expandTemplateItems } from '../core'
+import { WORKSPACE_PATH, localize, log, config } from '../utils'
+import {
+  getMenuRelativePath,
+  openTemplateList,
+  expandTemplateItems,
+  TemplateItem,
+  openInputPathPicker,
+} from '../core'
 
 /** 创建文件夹 */
 export function createFolder(path: string) {
@@ -10,22 +16,26 @@ export function createFolder(path: string) {
 
 /** 注册命令 */
 export function registerCreateFolder() {
-  vscode.commands.registerCommand('cmd.createFolder', uri => {
+  vscode.commands.registerCommand('cmd.createFolder', async uri => {
     if (!WORKSPACE_PATH) {
       return log.warn(localize.getLocalize('text.error.workspacePath'), true)
     }
 
-    const initPath = getMenuRelativePath(uri)
+    const { defaultFolderTemplate, rememberLastSelection } = config.extConfig
+    const menuPath = getMenuRelativePath(uri)
+    const templateItems = expandTemplateItems('folders')
 
-    const templateItems = expandTemplateItems('folders', { initPath })
+    let item: TemplateItem | undefined
 
-    showTemplateList(templateItems).then(res => {
-      console.log(res)
-      // if (typeof res.renderer !== 'function') {
-      //   const errorMessage = localize.getLocalize('text.error.templateFunction', res.label)
-      //   log.error(errorMessage, true)
-      //   return Promise.reject(errorMessage)
-      // }
-    })
+    if (rememberLastSelection && defaultFolderTemplate) {
+      item = templateItems.find(v => v.label === defaultFolderTemplate)
+      if (!item) log.warn(localize.getLocalize('text.warning.templateNotfound', defaultFolderTemplate), true)
+    }
+
+    if (!item) item = await openTemplateList(templateItems)
+
+    console.log(item)
+
+    openInputPathPicker(item, menuPath)
   })
 }
