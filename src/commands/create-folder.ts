@@ -1,7 +1,7 @@
 import vscode from 'vscode'
 
 import { localize, log, WORKSPACE_PATH } from '../utils'
-import { getMenuRelativePath, showTemplateList } from '../core'
+import { getMenuRelativePath, showTemplateList, expandTemplateItems } from '../core'
 
 /** 创建文件夹 */
 export function createFolder(path: string) {
@@ -17,7 +17,9 @@ export function registerCreateFolder() {
 
     const initPath = getMenuRelativePath(uri)
 
-    showTemplateList(initPath).then(res => {
+    const templateItems = expandTemplateItems('folders', { initPath })
+
+    showTemplateList(templateItems).then(res => {
       console.log(res)
       // if (typeof res.renderer !== 'function') {
       //   const errorMessage = localize.getLocalize('text.error.templateFunction', res.label)

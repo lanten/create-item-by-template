@@ -15,9 +15,10 @@
   "text.config.defaultFolderTemplate": "Template used by default when creating folders",
   "text.config.defaultFileTemplate": "Template used by default when creating files",
   "text.templateListItemDetail": "Template source: ${1} config",
+  "text.templateListItemDetailWithType": "Template ${1}: ${2} config",
   "text.templateListItemPlaceholder": "Please select a template to start creating",
-  "text.templateItemType.folder": "Folder",
-  "text.templateItemType.file": "File",
+  "text.templateItemType.folders": "Folder",
+  "text.templateItemType.files": "File",
 
   "text.success.create": "Create: Create ${1} successful",
 

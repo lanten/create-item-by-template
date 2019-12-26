@@ -1,5 +1,6 @@
 import path from 'path'
 import fs from 'fs'
+import vscode from 'vscode'
 
 import {
   TEMPLATE_CONFIG_FILE_NAME,
@@ -7,6 +8,7 @@ import {
   WORKSPACE_PATH,
   config,
   requireModule,
+  localize,
 } from '../utils'
 
 /** - interface - start ------------------------------------------------------------------- */
@@ -25,6 +27,15 @@ export interface TemplateConfigRendererRes {
   [key: string]: string[]
 }
 
+/** 模板列表选项 */
+export interface TemplateItem extends vscode.QuickPickItem {
+  /** 模板渲染函数 */
+  renderer: TemplateConfigRenderer
+  /** 类型：'file' | 'folder' */
+  type: ItemTypes
+  /** 类型说明：[文件 | 文件夹] */
+  typeDesc: string
+}
 /** - interface - end --------------------------------------------------------------------- */
 
 /**
@@ -76,4 +87,40 @@ export function handleTemplateConfig(conf: TemplateConfig): Required<TemplateCon
     res.folders[key] = conf[key]
   }
   return res
+}
+
+/**
+ * 展开模板
+ * @param type
+ * @param assignConfig
+ */
+export function expandTemplateItems<_, T extends AnyObj>(
+  type: ItemTypes,
+  assignConfig?: T
+): Array<TemplateItem> {
+  const templateConfig = getTemplateConfig()
+  const items: TemplateItem[] = []
+
+  for (const key in templateConfig) {
+    const val: Required<TemplateConfig> = templateConfig[key]
+    if (val) {
+      const source = localize.getLocalize(`text.source.${key}`)
+      const typeDesc = localize.getLocalize(`text.templateItemType.${type}`)
+      const detail = localize.getLocalize('text.templateListItemDetailWithType', typeDesc, source)
+
+      items.push(
+        ...Object.keys(val[type]).map(label => {
+          return {
+            label,
+            detail,
+            renderer: val.folders[label],
+            type,
+            typeDesc,
+            ...assignConfig,
+          } as TemplateItem
+        })
+      )
+    }
+  }
+  return items
 }
