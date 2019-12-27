@@ -14,28 +14,35 @@ export function createFolder(path: string) {
   console.log('createFolder')
 }
 
+export async function beforeCreate(templateItems: TemplateItem[], menuPath?: string, defaultTemplate?: string) {
+  let item: TemplateItem | undefined
+
+  if (defaultTemplate) {
+    item = templateItems.find(v => v.label === defaultTemplate)
+    if (!item) log.warn(localize.getLocalize('text.warning.templateNotfound', defaultTemplate), true)
+  }
+
+  if (!item) item = await openTemplateList(templateItems)
+
+  openInputPathPicker(item, menuPath)
+    .then(inputPath => {
+      console.log(inputPath)
+    })
+    .catch(() => {
+      beforeCreate(templateItems, menuPath)
+    })
+}
+
 /** 注册命令 */
 export function registerCreateFolder() {
-  vscode.commands.registerCommand('cmd.createFolder', async uri => {
+  vscode.commands.registerCommand('cmd.createFolder', uri => {
     if (!WORKSPACE_PATH) {
       return log.warn(localize.getLocalize('text.error.workspacePath'), true)
     }
 
-    const { defaultFolderTemplate, rememberLastSelection } = config.extConfig
     const menuPath = getMenuRelativePath(uri)
     const templateItems = expandTemplateItems('folders')
 
-    let item: TemplateItem | undefined
-
-    if (rememberLastSelection && defaultFolderTemplate) {
-      item = templateItems.find(v => v.label === defaultFolderTemplate)
-      if (!item) log.warn(localize.getLocalize('text.warning.templateNotfound', defaultFolderTemplate), true)
-    }
-
-    if (!item) item = await openTemplateList(templateItems)
-
-    console.log(item)
-
-    openInputPathPicker(item, menuPath)
+    beforeCreate(templateItems, menuPath, config.extConfig.defaultFolderTemplate)
   })
 }

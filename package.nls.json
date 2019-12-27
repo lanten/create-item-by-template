@@ -13,8 +13,10 @@
 
   "text.inputBoxPathPlaceholder": "Folder path",
   "text.inputBoxNamePlaceholder": "Folder name",
-  "text.inputBoxNamePrompt": "Will be created using the default template $ {1}",
+  "text.inputBoxNameTitle": "Will be created ${2} using the template: $ {1}",
+  "text.inputBoxNamePrompt": "Click the icon in the upper right corner to reselect",
 
+  "text.templateListReselect": "Reselect template",
   "text.templateListItemDetail": "Template source: ${1} config",
   "text.templateListItemDetailWithType": "Template ${1}: ${2} config",
   "text.templateListItemPlaceholder": "Please select a template to start creating",
@@ -33,9 +35,10 @@
   "text.error.templateFunction": "${1} Not a correct function",
   "text.error.templateFunction.run": "Template function failed to run ${1}",
   "text.error.templateSelect": "Template selection error",
-  "text.error.inputPath": "Path input is incorrect",
   "text.error.templateConfig": "Template configuration is incorrect",
   "text.error.createFolder": "Failed to create folder: ${1}",
   "text.error.createFile": "Failed to create file: ${1}",
-  "text.error.workspacePath": "Please open a project first"
+  "text.error.workspacePath": "Please open a project first",
+  "text.error.inputPath": "Path input is incorrect",
+  "text.error.inputEmpty": "Input can not be empty"
 }

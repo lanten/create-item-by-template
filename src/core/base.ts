@@ -1,10 +1,14 @@
-import vscode, { QuickInputButton, Uri } from 'vscode'
+import vscode from 'vscode'
 
 /** - interface - start ------------------------------------------------------------------- */
 
 export interface ListPickerConfig {
   placeholder?: string
+  /** 标题 */
+  title?: string
+  /** 列表数据 */
   items?: ListPickerItem[]
+  /** 异步数据处理钩子 */
   before?: (next: (items: ListPickerItem[]) => void) => void
 }
 
@@ -23,6 +27,7 @@ export function openListPicker(conf: ListPickerConfig): Promise<ListPickerItem[]
     const listPicker = vscode.window.createQuickPick()
     listPicker.placeholder = conf.placeholder
     listPicker.show()
+    listPicker.title = conf.title
 
     if (conf.before) {
       listPicker.busy = true

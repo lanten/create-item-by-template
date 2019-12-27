@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import vscode, { Uri } from 'vscode'
 
-import { localize, icons } from '../utils'
+import { localize, icons, REG } from '../utils'
 import { openListPicker, TemplateItem } from './'
 
 /**
@@ -30,6 +30,7 @@ export function getMenuRelativePath(uri: Uri) {
  */
 export async function openTemplateList(items: Array<TemplateItem>): Promise<TemplateItem> {
   return openListPicker({
+    title: localize.getLocalize('text.templateListItemPlaceholder'),
     placeholder: localize.getLocalize('text.templateListItemPlaceholder'),
     items,
   }).then(res => {
@@ -42,16 +43,17 @@ export async function openTemplateList(items: Array<TemplateItem>): Promise<Temp
 }
 
 export async function openInputPathPicker(item: TemplateItem, menuPath?: string) {
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     const inputBox = vscode.window.createInputBox()
+    inputBox.show()
 
     inputBox.placeholder = menuPath
       ? localize.getLocalize('text.inputBoxNamePlaceholder')
       : localize.getLocalize('text.inputBoxPathPlaceholder')
 
-    inputBox.title = localize.getLocalize('text.inputBoxNamePrompt', item.label)
-
-    inputBox.ignoreFocusOut = true
+    inputBox.title = localize.getLocalize('text.inputBoxNameTitle', item.label, item.typeDesc)
+    inputBox.prompt = localize.getLocalize('text.inputBoxNamePrompt')
+    // inputBox.ignoreFocusOut = true
     // inputBox.step = 1
     // inputBox.totalSteps = 2
 
@@ -64,15 +66,36 @@ export async function openInputPathPicker(item: TemplateItem, menuPath?: string)
           light: icons.back.light,
           dark: icons.back.dark,
         },
-        tooltip: '重新选择模板',
+        tooltip: localize.getLocalize('text.templateListReselect'),
       },
     ]
 
-    inputBox.onDidTriggerButton(res => {
-      console.log(res)
+    // 操作按钮点击事件
+    inputBox.onDidTriggerButton(e => {
+      reject(e)
+      inputBox.hide()
     })
 
-    inputBox.show()
-    resolve('')
+    // 确认输入事件
+    inputBox.onDidAccept(() => {
+      if (!inputBox.value) {
+        inputBox.validationMessage = localize.getLocalize('text.error.inputEmpty')
+      } else if (!REG.INPUT_PATH.test(inputBox.value)) {
+        inputBox.validationMessage = localize.getLocalize('text.error.inputPath')
+      } else {
+        resolve(inputBox.value)
+      }
+    })
+
+    // 输入内容发生改变
+    inputBox.onDidChangeValue(v => {
+      if (!v) {
+        inputBox.validationMessage = localize.getLocalize('text.error.inputEmpty')
+      } else if (!REG.INPUT_PATH.test(v)) {
+        inputBox.validationMessage = localize.getLocalize('text.error.inputPath')
+      } else {
+        inputBox.validationMessage = void 0
+      }
+    })
   })
 }
