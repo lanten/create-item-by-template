@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import vscode, { Uri, ThemeIcon } from 'vscode'
+import vscode, { Uri } from 'vscode'
 
 import { localize, icons } from '../utils'
 import { openListPicker, TemplateItem } from './'
@@ -51,29 +51,19 @@ export async function openInputPathPicker(item: TemplateItem, menuPath?: string)
 
     inputBox.title = localize.getLocalize('text.inputBoxNamePrompt', item.label)
 
-    // const actionButton = new Button({ light: icons.folder.light, dark: icons.folder.dark }, 'hahahah')
-
     inputBox.ignoreFocusOut = true
-    inputBox.step = 1
-    inputBox.totalSteps = 22
-    // inputBox.validationMessage = 'err asdasd'
+    // inputBox.step = 1
+    // inputBox.totalSteps = 2
 
     inputBox.buttons = [
       {
-        // iconPath: {
-        //   dark: vscode.Uri.parse(
-        //     'https://raw.githubusercontent.com/microsoft/vscode-icons/master/icons/dark/edit.svg'
-        //   ),
-        //   light: vscode.Uri.parse(
-        //     'https://raw.githubusercontent.com/microsoft/vscode-icons/master/icons/dark/edit.svg'
-        //   ),
-        // },
+        // iconPath: Uri.file(global.ctx.asAbsolutePath('assets/icons/back.light.svg')),
         // iconPath: Uri.file(global.ctx.asAbsolutePath('assets/icons/test.png')),
-        iconPath: Uri.file(global.ctx.asAbsolutePath('assets/icons/folder.dark.svg')),
-        // iconPath: {
-        //   light: icons.folder.light,
-        //   dark: icons.folder.light,
-        // },
+
+        iconPath: {
+          light: icons.back.light,
+          dark: icons.back.dark,
+        },
         tooltip: '重新选择模板',
       },
     ]
