@@ -11,6 +11,8 @@ import {
   localize,
 } from '../utils'
 
+import { PathH } from './'
+
 /** - interface - start ------------------------------------------------------------------- */
 
 /** 模板配置文件到处内容 */
@@ -20,9 +22,12 @@ export interface TemplateConfig {
 }
 
 /** 模板渲染函数 */
-export type TemplateConfigRenderer = (name: string, config: any) => TemplateConfigRendererRes
+export type TemplateConfigRenderer = (
+  name: string,
+  config: any,
+  paths: PathH
+) => TemplateConfigRendererRes | string[] | string
 
-/** 模板渲染函数返回值 */
 export interface TemplateConfigRendererRes {
   [key: string]: string[]
 }
@@ -30,7 +35,7 @@ export interface TemplateConfigRendererRes {
 /** 模板列表选项 */
 export interface TemplateItem extends vscode.QuickPickItem {
   /** 模板渲染函数 */
-  renderer: TemplateConfigRenderer
+  renderer: TemplateConfigRenderer | TemplateConfigRendererRes | string[]
   /** 类型：'file' | 'folder' */
   type: ItemTypes
   /** 类型说明：[文件 | 文件夹] */

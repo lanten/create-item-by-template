@@ -87,7 +87,7 @@ class Config {
         log.info(localize.getLocalize('text.success.create', 'GlobalStorage'))
         mkdirRecursive(storagePath, appPath)
       } catch (error) {
-        log.error(localize.getLocalize('text.error.createFolder', globalStoragePath), true)
+        log.error(localize.getLocalize('text.error.create.folders', globalStoragePath), true)
       }
     }
 

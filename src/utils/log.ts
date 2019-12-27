@@ -45,7 +45,7 @@ class Log {
    * @param intend
    */
   public warn(message: string, prompt = false, intend = 0) {
-    const type: LogTypes = 'INFO'
+    const type: LogTypes = 'WARN'
     if (prompt) window.showWarningMessage(`${type}: \n ${message}`)
     return this.log(type, message, intend)
   }
@@ -57,7 +57,7 @@ class Log {
    * @param intend 缩进
    */
   public error(err: Error | string, prompt = true, intend = 0) {
-    const type: LogTypes = 'INFO'
+    const type: LogTypes = 'ERROR'
     if (prompt) window.showErrorMessage(`${type}: \n ${err.toString()}`)
     if (typeof err === 'string') {
       return this.log(type, err, intend)

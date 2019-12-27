@@ -1,32 +1,27 @@
 import vscode from 'vscode'
 
-import { WORKSPACE_PATH, localize, log } from '../utils'
-import { getMenuRelativePath, expandTemplateItems, openTemplateList } from '../core'
+import { WORKSPACE_PATH, localize, log, config } from '../utils'
+import { Create } from '../core'
 
-export function createFile() {
-  console.log('createFile')
-}
-
-/** 注册命令 */
+/**
+ * 注册命令 - 创建文件
+ */
 export function registerCreateFile() {
   vscode.commands.registerCommand('cmd.createFile', uri => {
     if (!WORKSPACE_PATH) {
       return log.error(localize.getLocalize('text.error.workspacePath'), true)
     }
 
-    const initPath = getMenuRelativePath(uri)
-
-    const templateItems = expandTemplateItems('files', { initPath })
-
-    openTemplateList(templateItems).then(res => {
-      console.log(res)
-      // if (typeof res.renderer !== 'function') {
-      //   const errorMessage = localize.getLocalize('text.error.templateFunction', res.label)
-      //   log.error(errorMessage, true)
-      //   return Promise.reject(errorMessage)
-      // }
+    const create = new Create({
+      type: 'files',
+      menuPath: uri,
+      defaultTemplate: config.extConfig.defaultFileTemplate,
     })
 
-    console.log(initPath)
+    create.beforeCreate().then(res => {
+      if (res) {
+        create.createItem(res)
+      }
+    })
   })
 }

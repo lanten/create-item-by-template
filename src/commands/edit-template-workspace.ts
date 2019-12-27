@@ -19,7 +19,7 @@ export function editTemplateWorkspace() {
     try {
       mkdirRecursive('.vscode')
     } catch (error) {
-      return log.error(localize.getLocalize('text.error.createFolder', vscodeConfigFolderPath))
+      return log.error(localize.getLocalize('text.error.create.folders', vscodeConfigFolderPath))
     }
   }
 

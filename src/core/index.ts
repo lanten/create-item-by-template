@@ -1,3 +1,3 @@
 export * from './base'
-export * from './before-create'
+export * from './main-process'
 export * from './get-templates'
