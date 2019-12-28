@@ -8,8 +8,11 @@
   "menu.createFile.title": "从模板创建文件",
 
   "text.noWorkspace": "需要工作区",
+  "text.createTo": "在${1}创建",
   "text.source.global": "全局",
   "text.source.workspace": "工作区",
+
+  "text.modal.noTemplateConfig": "你似乎还没有任何模板配置文件，请先选择一个合适的位置创建：",
 
   "text.inputBoxPathPlaceholder": "${1}路径",
   "text.inputBoxNamePlaceholder": "${1}名称",

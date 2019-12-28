@@ -2,14 +2,7 @@ import path from 'path'
 import fs from 'fs'
 import vscode from 'vscode'
 
-import {
-  TEMPLATE_CONFIG_FILE_NAME,
-  DEFAULT_TEMPLATE_FILE_PATH,
-  WORKSPACE_PATH,
-  config,
-  requireModule,
-  localize,
-} from '../utils'
+import { TEMPLATE_CONFIG_FILE_NAME, WORKSPACE_PATH, config, requireModule, localize } from '../utils'
 
 import { PathH } from './'
 
@@ -43,6 +36,7 @@ export interface TemplateItem extends vscode.QuickPickItem {
   /** 类型说明：[文件 | 文件夹] */
   typeDesc: string
 }
+
 /** - interface - end --------------------------------------------------------------------- */
 
 /**
@@ -52,21 +46,27 @@ export function getTemplateConfig() {
   const globalStoragePath = config.getGlobalStoragePath()
   const globalTemplatePath = path.join(globalStoragePath, TEMPLATE_CONFIG_FILE_NAME)
 
+  let workspaceConfigPath = ''
   let globalTemplate: TemplateConfig = {}
   let workspaceTemplate = {}
+  let noTemplateFlg = true
 
-  if (!fs.existsSync(globalTemplatePath)) {
-    const readable = fs.createReadStream(DEFAULT_TEMPLATE_FILE_PATH)
-    readable.pipe(fs.createWriteStream(globalTemplatePath))
-  } else {
+  if (fs.existsSync(globalTemplatePath)) {
     globalTemplate = requireModule(globalTemplatePath)
+    noTemplateFlg = false
   }
 
   if (WORKSPACE_PATH) {
-    const workspaceConfigPath = path.join(WORKSPACE_PATH, '.vscode', TEMPLATE_CONFIG_FILE_NAME)
+    workspaceConfigPath = path.join(WORKSPACE_PATH, '.vscode', TEMPLATE_CONFIG_FILE_NAME)
     if (fs.existsSync(workspaceConfigPath)) {
       workspaceTemplate = requireModule(workspaceConfigPath)
+      noTemplateFlg = false
     }
+  }
+
+  if (noTemplateFlg) {
+    createTemplateConfigModal()
+    throw new Error('no any template config found')
   }
 
   return {
@@ -74,6 +74,28 @@ export function getTemplateConfig() {
     workspace: handleTemplateConfig(workspaceTemplate),
     global: handleTemplateConfig(globalTemplate),
   }
+}
+
+/**
+ * 创建配置文件弹窗
+ */
+export function createTemplateConfigModal() {
+  const globalStr = localize.getLocalize('text.createTo', localize.getLocalize('text.source.global'))
+  const workspaceStr = localize.getLocalize('text.createTo', localize.getLocalize('text.source.workspace'))
+
+  const modal = vscode.window.showInformationMessage(
+    localize.getLocalize('text.modal.noTemplateConfig'),
+    globalStr,
+    workspaceStr
+  )
+
+  modal.then(res => {
+    if (res === globalStr) {
+      vscode.commands.executeCommand('cmd.editTemplateGlobal')
+    } else if (res === workspaceStr) {
+      vscode.commands.executeCommand('cmd.editTemplateWorkspace')
+    }
+  })
 }
 
 /**

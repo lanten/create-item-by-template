@@ -8,8 +8,11 @@
   "menu.createFile.title": "Create file by template",
 
   "text.noWorkspace": "Must be in the workspace",
+  "text.createTo": "Create to ${1}",
   "text.source.global": "Global",
   "text.source.workspace": "Workspace",
+
+  "text.modal.noTemplateConfig": "You don't seem to have any template configuration file yet, please choose a suitable location to create it first:",
 
   "text.inputBoxPathPlaceholder": "${1} path",
   "text.inputBoxNamePlaceholder": "${1} name",
