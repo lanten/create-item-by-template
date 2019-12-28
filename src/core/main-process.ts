@@ -55,6 +55,9 @@ export class Create {
   public defaultTemplate: CreateOptions['defaultTemplate']
   public templateItems: TemplateItem[]
 
+  /** 准备创建 */
+  public onCreateReady?: (data: CreateData | void) => void
+
   constructor(options: CreateOptions) {
     this.type = options.type
     this.menuPath = options.menuPath
@@ -86,10 +89,13 @@ export class Create {
 
     return this.openInputPathPicker(item)
       .then(str => {
-        return {
+        const resData = {
           paths: this.handleInputPath(str),
           item,
         } as CreateData
+
+        if (this.onCreateReady) this.onCreateReady(resData)
+        return resData
       })
       .catch(() => {
         this.beforeCreate(false)
@@ -161,7 +167,7 @@ export class Create {
       }
 
       // 自动记录默认模板配置
-      if (config.extConfig.rememberLastSelection) {
+      if (config.extConfig.rememberLastSelection && this.defaultTemplate !== item.label) {
         let nextCodeConfig = {}
 
         if (item.type === 'files') {
@@ -170,10 +176,17 @@ export class Create {
           nextCodeConfig = { defaultFolderTemplate: item.label }
         }
         config.setCodeConfig(nextCodeConfig)
-        log.info(`${localize.getLocalize('text.config.rememberLastSelection')}: ${item.label}`)
+        log.info(
+          `${localize.getLocalize('text.config.rememberLastSelection')} ${localize.getLocalize(
+            `text.templateItemType.${item.type}`
+          )}: ${item.label}`
+        )
       }
 
-      const message = localize.getLocalize('text.success.create', paths.lastName)
+      const message = localize.getLocalize(
+        'text.success.create',
+        `${localize.getLocalize(`text.templateItemType.${item.type}`)}: ${paths.lastName}`
+      )
       log.info(message, true)
       resolve({ status: true, message })
     })

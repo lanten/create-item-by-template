@@ -18,10 +18,12 @@ export function registerCreateFolder() {
       defaultTemplate: config.extConfig.defaultFolderTemplate,
     })
 
-    create.beforeCreate().then(res => {
+    create.beforeCreate()
+
+    create.onCreateReady = res => {
       if (res) {
         create.createItem(res)
       }
-    })
+    }
   })
 }

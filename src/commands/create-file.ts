@@ -18,10 +18,12 @@ export function registerCreateFile() {
       defaultTemplate: config.extConfig.defaultFileTemplate,
     })
 
-    create.beforeCreate().then(res => {
+    create.beforeCreate()
+
+    create.onCreateReady = res => {
       if (res) {
         create.createItem(res)
       }
-    })
+    }
   })
 }
