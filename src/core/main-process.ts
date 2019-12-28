@@ -3,7 +3,13 @@ import path from 'path'
 import vscode, { Uri } from 'vscode'
 
 import { WORKSPACE_PATH, REG, localize, icons, log, mkdirRecursive } from '../utils'
-import { openListPicker, TemplateItem, TemplateConfigRendererRes, expandTemplateItems } from './'
+import {
+  openListPicker,
+  TemplateItem,
+  TemplateConfigRendererRes,
+  RendererResType,
+  expandTemplateItems,
+} from './'
 
 /** - interface - start ------------------------------------------------------------------- */
 
@@ -97,16 +103,13 @@ export class Create {
     return new Promise((resolve, reject: (err: CreateRes) => void) => {
       const { paths, item } = data
 
-      // console.log(data)
-
-      let templateRenderData: TemplateConfigRendererRes | string[] | string = {}
+      let templateRenderData: TemplateConfigRendererRes = {}
 
       try {
         if (type === 'folders') {
-          templateRenderData =
-            typeof item.renderer === 'function'
-              ? item.renderer(paths.lastName, paths.query, paths)
-              : item.renderer
+          templateRenderData = (typeof item.renderer === 'function'
+            ? item.renderer(paths.lastName, paths.query, paths)
+            : item.renderer) as TemplateConfigRendererRes
           if (fs.existsSync(paths.folderAbsolutePath)) {
             const message = localize.getLocalize(`text.warning.${type}Existed`, paths.folderAbsolutePath)
             log.warn(message, true)
@@ -130,43 +133,56 @@ export class Create {
         reject({ status: false, message })
       }
 
-      console.log(templateRenderData, item)
+      for (const fileName in templateRenderData) {
+        let templateStr = ''
 
-      // for (const fileName in templateRenderData) {
-      //   const templateArr = templateRenderData[fileName]
-      //   let templateStr = ''
+        try {
+          templateStr = this.templateStringify(templateRenderData[fileName], paths)
+        } catch (error) {
+          const message = localize.getLocalize('text.error.templateConfig')
+          console.error(error)
+          log.error(message, true)
+          return reject({ status: false, message })
+        }
 
-      //   console.log('123123123', templateArr, fileName)
+        const filePath = path.resolve(paths.folderAbsolutePath, fileName)
 
-      //   if (typeof templateArr === 'string') {
-      //     templateStr = templateArr
-      //   } else {
-      //     try {
-      //       templateStr = templateArr.join('\n')
-      //     } catch (error) {
-      //       const message = localize.getLocalize('text.error.templateConfig')
-      //       console.error(error)
-      //       log.error(message, true)
-      //       return reject({ status: false, message })
-      //     }
-      //   }
+        try {
+          fs.writeFileSync(filePath, templateStr, 'utf-8')
+        } catch (error) {
+          const message = localize.getLocalize('text.error.create.files', `${filePath}`)
+          console.error(error)
+          log.error(message, true)
+          return reject({ status: false, message })
+        }
+      }
 
-      //   const filePath = path.resolve(paths.folderAbsolutePath, fileName)
-
-      //   try {
-      //     fs.writeFileSync(filePath, templateStr, 'utf-8')
-      //   } catch (error) {
-      //     const message = localize.getLocalize('text.error.create.files', `${filePath}`)
-      //     console.error(error)
-      //     log.error(message, true)
-      //     return reject({ status: false, message })
-      //   }
-      // }
-
-      // const message = localize.getLocalize('text.success.create', paths.lastName)
-      // log.info(message, true)
-      // resolve({ status: true, message })
+      const message = localize.getLocalize('text.success.create', paths.lastName)
+      log.info(message, true)
+      resolve({ status: true, message })
     })
+  }
+
+  /**
+   * 将模板配置转换成字符串
+   * @param templateVal
+   */
+  templateStringify(templateVal: RendererResType, paths: PathH): string {
+    let templateStr = ''
+    if (typeof templateVal === 'string') {
+      templateStr = templateVal
+    } else if (typeof templateVal === 'function') {
+      const fireRes = templateVal(paths.lastName, paths.query, paths)
+      if (typeof fireRes === 'object' && !Array.isArray(fireRes)) {
+        // 禁止套娃
+        throw new Error('模板配置错误，禁止套娃！')
+      } else {
+        templateStr = this.templateStringify(fireRes, paths)
+      }
+    } else {
+      templateStr = templateVal.join('\n')
+    }
+    return templateStr
   }
 
   /**

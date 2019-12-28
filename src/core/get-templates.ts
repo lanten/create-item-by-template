@@ -21,6 +21,8 @@ export interface TemplateConfig {
   files?: { [key: string]: TemplateConfigRenderer | TemplateConfigRendererRes }
 }
 
+export type RendererResType = string[] | string | TemplateConfigRenderer
+
 /** 模板渲染函数 */
 export type TemplateConfigRenderer = (
   name: string,
@@ -29,13 +31,13 @@ export type TemplateConfigRenderer = (
 ) => TemplateConfigRendererRes | string[] | string
 
 export interface TemplateConfigRendererRes {
-  [key: string]: string[]
+  [key: string]: RendererResType
 }
 
 /** 模板列表选项 */
 export interface TemplateItem extends vscode.QuickPickItem {
   /** 模板渲染函数 */
-  renderer: TemplateConfigRenderer | TemplateConfigRendererRes | string[]
+  renderer: TemplateConfigRenderer | TemplateConfigRendererRes
   /** 类型：'file' | 'folder' */
   type: ItemTypes
   /** 类型说明：[文件 | 文件夹] */
@@ -118,7 +120,7 @@ export function expandTemplateItems<_, T extends AnyObj>(
           return {
             label,
             detail,
-            renderer: val.folders[label],
+            renderer: val[type][label],
             type,
             typeDesc,
             ...assignConfig,
@@ -127,5 +129,6 @@ export function expandTemplateItems<_, T extends AnyObj>(
       )
     }
   }
+
   return items
 }
