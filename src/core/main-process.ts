@@ -2,7 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import vscode, { Uri } from 'vscode'
 
-import { WORKSPACE_PATH, REG, localize, icons, log, mkdirRecursive } from '../utils'
+import { WORKSPACE_PATH, REG, localize, icons, log, mkdirRecursive, config } from '../utils'
 import {
   openListPicker,
   TemplateItem,
@@ -77,13 +77,14 @@ export class Create {
 
     if (!item) {
       item = await this.openTemplateList(this.templateItems).catch(() => {
-        this.beforeCreate(false)
         log.error(localize.getLocalize('text.error.templateSelect'), true)
         return undefined
       })
     }
 
-    return this.openInputPathPicker(item as TemplateItem)
+    if (!item) return this.beforeCreate()
+
+    return this.openInputPathPicker(item)
       .then(str => {
         return {
           paths: this.handleInputPath(str),
@@ -105,6 +106,7 @@ export class Create {
 
       let templateRenderData: TemplateConfigRendererRes = {}
 
+      // 创建文件夹
       try {
         if (type === 'folders') {
           templateRenderData = (typeof item.renderer === 'function'
@@ -133,6 +135,7 @@ export class Create {
         reject({ status: false, message })
       }
 
+      // 创建文件
       for (const fileName in templateRenderData) {
         let templateStr = ''
 
@@ -155,6 +158,19 @@ export class Create {
           log.error(message, true)
           return reject({ status: false, message })
         }
+      }
+
+      // 自动记录默认模板配置
+      if (config.extConfig.rememberLastSelection) {
+        let nextCodeConfig = {}
+
+        if (item.type === 'files') {
+          nextCodeConfig = { defaultFileTemplate: item.label }
+        } else {
+          nextCodeConfig = { defaultFolderTemplate: item.label }
+        }
+        config.setCodeConfig(nextCodeConfig)
+        log.info(`${localize.getLocalize('text.config.rememberLastSelection')}: ${item.label}`)
       }
 
       const message = localize.getLocalize('text.success.create', paths.lastName)

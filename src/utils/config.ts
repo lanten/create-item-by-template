@@ -52,7 +52,7 @@ class Config {
    * 写入 vscode 配置
    * @param config
    */
-  setCodeConfig(config: CodeConfig) {
+  setCodeConfig(config: Partial<CodeConfig>) {
     for (const configKey in config) {
       const settingsKey = `${CONFIG_GROUP}.${configKey}`
       const val = config[configKey]

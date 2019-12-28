@@ -71,17 +71,17 @@
     "configuration": {
       "title": "createItemByTemplate",
       "properties": {
-        "createItemByTemplate.defaultFolderTemplate": {
+        "create.defaultFolderTemplate": {
           "type": "string",
           "description": "%text.config.defaultFolderTemplate%",
           "default": ""
         },
-        "createItemByTemplate.defaultFileTemplate": {
+        "create.defaultFileTemplate": {
           "type": "string",
           "description": "%text.config.defaultFileTemplate%",
           "default": ""
         },
-        "createItemByTemplate.rememberLastSelection": {
+        "create.rememberLastSelection": {
           "type": "boolean",
           "description": "%text.config.rememberLastSelection%",
           "default": false
