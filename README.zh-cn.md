@@ -32,11 +32,11 @@
 
 ## 开始使用
 
-- 使用命令创建 :
+#### 使用命令创建 :
 使用快捷键 <kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>p</kbd> 打开命令面板
 ![](./assets/doc-img/zh-cn/cmds.png)
 
-- 在资源管理器中使用右键菜单创建 :
+#### 在资源管理器中使用右键菜单创建 :
 ![](./assets/doc-img/zh-cn/right-click.png)
 
 
@@ -49,7 +49,7 @@
 - 配置文件必须存在一个默认导出：`module.exports = { files, folders }`
 - `files` 将被解析为文件列表
 - `folders` 将被解析为文件夹列表
-- 传入的其它字段将被是为文件夹
+- 传入的其它字段将被视为文件夹
 - 可以通过 `url search` 传入参数，如 `?type=1` 将被解析为对象：`{ type:1 }`
 
 下面是一个简单的例子，更多用法请查看此 [wiki](https://github.com/lanten/create-item-by-template/wiki/Template-Example)
