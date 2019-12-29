@@ -6,7 +6,7 @@
   "icon": "assets/icon.png",
   "publisher": "lanten",
   "engines": {
-    "vscode": "^1.38.0"
+    "vscode": "^1.41.0"
   },
   "categories": [
     "Other"
@@ -90,15 +90,17 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "yarn run compile",
+    "vscode:prepublish": "npm run compile",
     "build": "rm -rf ./dist && webpack --mode production",
-    "webpack-compile": "webpack --mode development",
-    "webpack-watch": "webpack --mode development --watch",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./"
   },
+  "dependencies": {
+    "tslib": "^1.10.0"
+  },
   "devDependencies": {
-    "@types/vscode": "^1.38.0",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.41.0",
     "@typescript-eslint/eslint-plugin": "^2.3.1",
     "@typescript-eslint/parser": "^2.3.1",
     "eslint": "^6.4.0",
