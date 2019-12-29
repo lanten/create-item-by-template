@@ -7,8 +7,6 @@
 		"sourceMap": true,
 		"rootDir": ".",
 		"strict": true,
-		"importHelpers": true,
-		// "removeComments": true,
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
 		"esModuleInterop": true,
