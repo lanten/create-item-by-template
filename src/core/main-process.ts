@@ -228,7 +228,7 @@ export class Create {
   public handleInputPath(inputPath: string): PathH {
     const inputPathArr = path
       .join(this.menuPathStr || '', inputPath)
-      .replace('\\', '/')
+      .replace(/\\/g, '/')
       .split('/')
     const queryArr = inputPathArr[inputPathArr.length - 1].split('?')
     const lastName = queryArr[0]
