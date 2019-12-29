@@ -155,7 +155,7 @@ export class Create {
           return reject({ status: false, message })
         }
 
-        const filePath = path.resolve(paths.folderAbsolutePath, fileName)
+        const filePath = path.join(paths.folderAbsolutePath, fileName)
 
         if (fs.existsSync(filePath)) {
           const message = localize.getLocalize('text.error.filesExisted', filePath)
@@ -226,7 +226,10 @@ export class Create {
    * @param inputPath
    */
   public handleInputPath(inputPath: string): PathH {
-    const inputPathArr = inputPath.split('/')
+    const inputPathArr = path
+      .join(this.menuPathStr || '', inputPath)
+      .replace('\\', '/')
+      .split('/')
     const queryArr = inputPathArr[inputPathArr.length - 1].split('?')
     const lastName = queryArr[0]
     const query = {}
@@ -238,10 +241,10 @@ export class Create {
 
     if (this.type === 'files') {
       folderPath = folderPathArr.join('/')
-      fileAbsolutePath = path.resolve(WORKSPACE_PATH as string, itemPath)
+      fileAbsolutePath = path.join(WORKSPACE_PATH as string, itemPath)
     }
 
-    const folderAbsolutePath = path.resolve(WORKSPACE_PATH as string, folderPath)
+    const folderAbsolutePath = path.join(WORKSPACE_PATH as string, folderPath)
 
     if (queryArr.length > 1) {
       queryArr[1].split('&').forEach(str => {
@@ -274,7 +277,6 @@ export class Create {
   /**
    * 打开输入框
    * @param item
-   * @param menuPath
    */
   public async openInputPathPicker(item: TemplateItem): Promise<string> {
     return new Promise((resolve, reject) => {
