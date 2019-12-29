@@ -2,7 +2,7 @@
   "name": "create-item-by-template",
   "displayName": "Create Item By Template",
   "description": "Create a folder quickly using a template",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "icon": "assets/icon.png",
   "publisher": "lanten",
   "engines": {
@@ -94,7 +94,7 @@
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "npm run compile",
-    "test": "node ./out/src/test/runTest.js"
+    "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
     "@types/glob": "^7.1.1",
