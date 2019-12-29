@@ -22,11 +22,11 @@ Create multiple files at the same time in a new folder and add custom text
 
 ## Settings
 
-| Name                         | Description                                    | Type   |
-| ---------------------------- | ---------------------------------------------- | ------ |
-| create.defaultFolderTemplate | Template used by default when creating folders | string |
-| create.defaultFileTemplate   | Template used by default when creating files   | string |
-| create.rememberLastSelection | Remember last selected template                | string |
+| Name                         | Description                                    | Type    | Default |
+| ---------------------------- | ---------------------------------------------- | ------- | ------- |
+| create.defaultFolderTemplate | Template used by default when creating folders | string  | ''      |
+| create.defaultFileTemplate   | Template used by default when creating files   | string  | ''      |
+| create.rememberLastSelection | Remember last selected template                | boolean | false   |
 
 Reselect the template:
 ![](assets/doc-img/en/reselect-template.png)

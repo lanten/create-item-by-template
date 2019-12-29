@@ -21,11 +21,11 @@
 
 ## Settings
 
-| 名称                         | 说明               | 类型   |
-| ---------------------------- | ------------------ | ------ |
-| create.defaultFolderTemplate | 默认文件夹模板     | string |
-| create.defaultFileTemplate   | 默认文件模板       | string |
-| create.rememberLastSelection | 记住上次选择的模板 | string |
+| 名称                         | 说明               | 类型    | 默认值 |
+| ---------------------------- | ------------------ | ------- | ------ |
+| create.defaultFolderTemplate | 默认文件夹模板     | string  | ''     |
+| create.defaultFileTemplate   | 默认文件模板       | string  | ''     |
+| create.rememberLastSelection | 记住上次选择的模板 | boolean | false  |
 
 重新选择模板：
 ![](assets/doc-img/zh-cn/reselect-template.png)
