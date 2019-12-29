@@ -3,10 +3,10 @@
   "displayName": "Create Item By Template",
   "description": "Create a folder quickly using a template",
   "version": "2.0.0",
-  "icon": "images/icon.png",
+  "icon": "assets/icon.png",
   "publisher": "lanten",
   "engines": {
-    "vscode": "^1.29.0"
+    "vscode": "^1.38.0"
   },
   "categories": [
     "Other"
