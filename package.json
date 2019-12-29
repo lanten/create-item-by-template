@@ -2,7 +2,7 @@
   "name": "create-item-by-template",
   "displayName": "Create Item By Template",
   "description": "Create a folder quickly using a template",
-  "version": "1.0.6",
+  "version": "2.0.1",
   "icon": "images/icon.png",
   "publisher": "lanten",
   "engines": {
@@ -42,18 +42,6 @@
         "title": "%cmd.creatItemByTemplate.title%"
       },
       {
-        "command": "extension.creatFileByTemplate",
-        "title": "%cmd.creatFileByTemplate.title%"
-      },
-      {
-        "command": "menu.creatItemByTemplate",
-        "title": "%menu.creatItemByTemplate.title%"
-      },
-      {
-        "command": "menu.creatFileByTemplate",
-        "title": "%menu.creatFileByTemplate.title%"
-      },
-      {
         "command": "extension.editTemplateGlobal",
         "title": "%cmd.editTemplateGlobal.title%"
       },
@@ -66,12 +54,7 @@
       "explorer/context": [
         {
           "group": "1_creatItemByTemplate",
-          "command": "menu.creatItemByTemplate",
-          "when": "explorerResourceIsFolder"
-        },
-        {
-          "group": "1_creatItemByTemplate",
-          "command": "menu.creatFileByTemplate",
+          "command": "extension.creatItemByTemplate",
           "when": "explorerResourceIsFolder"
         }
       ]
