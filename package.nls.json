@@ -1,11 +1,8 @@
 {
-  "cmd.createFolder.title": "Create: Create item by template",
-  "cmd.createFile.title": "Create: Create file by template",
+  "cmd.createFolder.title": "Create: folder by template",
+  "cmd.createFile.title": "Create: file by template",
   "cmd.editTemplateGlobal.title": "Create: Edit template (Global)",
   "cmd.editTemplateWorkspace.title": "Create: Edit template (Workspace)",
-
-  "menu.createFolder.title": "Create item by template",
-  "menu.createFile.title": "Create file by template",
 
   "text.noWorkspace": "Must be in the workspace",
   "text.createTo": "Create to ${1}",
@@ -16,7 +13,7 @@
 
   "text.inputBoxPathPlaceholder": "${1} path",
   "text.inputBoxNamePlaceholder": "${1} name",
-  "text.inputBoxNameTitle": "Will be created ${2} using the template: $ {1}",
+  "text.inputBoxNameTitle": "Will be created ${2} using the template: ${1}",
   "text.inputBoxNamePrompt": "Click the icon in the upper right corner to reselect",
 
   "text.templateListReselect": "Reselect template",
@@ -32,17 +29,17 @@
 
   "text.success.create": "Create ${1} successful",
 
-  "text.warning.filesExisted": "File existed ${1}",
-  "text.warning.foldersExisted": "Folder existed ${1}",
   "text.warning.templateNotfound": "The ${1} template was not found",
 
+  "text.error.filesExisted": "File existed ${1}",
+  "text.error.foldersExisted": "Folder existed ${1}",
   "text.error.templateFunction": "${1} Not a correct function",
   "text.error.templateFunction.run": "Template function failed to run ${1}",
   "text.error.templateSelect": "Template selection error",
   "text.error.templateConfig": "Template configuration is incorrect",
   "text.error.create.folders": "Failed to create folder: ${1}",
   "text.error.create.files": "Failed to create file: ${1}",
-  "text.error.workspacePath": "Please open a project first",
+  "text.error.workspacePath": "Please open a workspace first",
   "text.error.inputPath": "Path input is incorrect",
   "text.error.inputEmpty": "Input can not be empty"
 }

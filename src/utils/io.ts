@@ -26,11 +26,15 @@ export function mkdirRecursive(dir: string, inputPath = WORKSPACE_PATH || '', sp
  * @param modulePath 要导入的文件路径
  */
 export function requireModule(modulePath: string) {
-  const m = require(modulePath)
-  setTimeout(() => {
-    delete require.cache[require.resolve(modulePath)]
-  }, 200)
-  return m
+  try {
+    const m = require(modulePath)
+    setTimeout(() => {
+      delete require.cache[require.resolve(modulePath)]
+    }, 200)
+    return m
+  } catch (error) {
+    throw new Error(error)
+  }
 }
 
 /**

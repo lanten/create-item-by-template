@@ -119,8 +119,9 @@ export class Create {
             ? item.renderer(paths.lastName, paths.query, paths)
             : item.renderer) as TemplateConfigRendererRes
           if (fs.existsSync(paths.folderAbsolutePath)) {
-            const message = localize.getLocalize(`text.warning.${type}Existed`, paths.folderAbsolutePath)
-            log.warn(message, true)
+            const message = localize.getLocalize('text.error.foldersExisted', paths.folderAbsolutePath)
+            log.error(message, true)
+            return reject({ status: false, message })
           } else {
             mkdirRecursive(paths.folderPath)
           }
@@ -138,7 +139,7 @@ export class Create {
       } catch (error) {
         const message = localize.getLocalize(`text.error.create.${type}`, error)
         log.error(message, true)
-        reject({ status: false, message })
+        return reject({ status: false, message })
       }
 
       // 创建文件
@@ -156,10 +157,16 @@ export class Create {
 
         const filePath = path.resolve(paths.folderAbsolutePath, fileName)
 
+        if (fs.existsSync(filePath)) {
+          const message = localize.getLocalize('text.error.filesExisted', filePath)
+          log.error(message, true)
+          return reject({ status: false, message })
+        }
+
         try {
           fs.writeFileSync(filePath, templateStr, 'utf-8')
         } catch (error) {
-          const message = localize.getLocalize('text.error.create.files', `${filePath}`)
+          const message = localize.getLocalize('text.error.create.files', `\n${error.message}\n${error.stack}`)
           console.error(error)
           log.error(message, true)
           return reject({ status: false, message })
