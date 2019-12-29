@@ -1,0 +1,37 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "esnext",
+		"outDir": "dist",
+		"baseUrl": "./",
+		"sourceMap": true,
+		"rootDir": ".",
+		"strict": true,
+		"importHelpers": true,
+		// "removeComments": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"typeRoots": [
+			"node_modules/@types"
+		],
+		// "paths": {
+		// 	"@/*": [
+		// 		"src/*"
+		// 	]
+		// },
+		"lib": [
+			"esnext",
+			"es6"
+		]
+	},
+	"include": [
+		"types/**/*.ts",
+		"src/**/*.ts",
+	],
+	"exclude": [
+		"node_modules",
+	]
+}

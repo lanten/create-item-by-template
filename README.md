@@ -1,39 +1,75 @@
 # create-item-by-template
-[![Version](https://vsmarketplacebadge.apphb.com/version/lanten.create-item-by-template.svg)](https://marketplace.visualstudio.com/items?itemName=lanten.create-item-by-template)
-[![Installs](https://vsmarketplacebadge.apphb.com/installs/lanten.create-item-by-template.svg)](https://marketplace.visualstudio.com/items?itemName=lanten.create-item-by-template)
+[![](https://vsmarketplacebadge.apphb.com/version/lanten.create-item-by-template.svg)](https://marketplace.visualstudio.com/items?itemName=lanten.create-item-by-template)
+<!-- [![](https://vsmarketplacebadge.apphb.com/rating-star/lanten.create-item-by-template.svg)](https://marketplace.visualstudio.com/items?itemName=lanten.create-item-by-template) -->
+[![](https://vsmarketplacebadge.apphb.com/installs/lanten.create-item-by-template.svg)](https://marketplace.visualstudio.com/items?itemName=lanten.create-item-by-template)
+[![](https://vsmarketplacebadge.apphb.com/trending-monthly/lanten.create-item-by-template.svg)](https://marketplace.visualstudio.com/items?itemName=lanten.create-item-by-template)
 
 
 This extension can help you quickly create a folder using a template
 
-## Right click to create :
-![1](./images/m-1.gif)
+Create multiple files at the same time in a new folder and add custom text
 
-## Command to create :
-![2](./images/m-2.gif)
+[中文说明](./README.zh-cn.md)
+
 
 ## Commands
 
-<kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>p</kbd>
+- Create: item by template
+- Create: file by template
+- Create: Edit template (Global)
+- Create: Edit template (Workspace)
 
-  - Create: Create item by template
-  - Create: Edit template (Global)
-  - Create: Edit template (Workspace)}
 
-## Edit template
+## Settings
 
-You can edit template at `global` and `workspace`
+| Name                         | Description                                    | Type   |
+| ---------------------------- | ---------------------------------------------- | ------ |
+| create.defaultFolderTemplate | Template used by default when creating folders | string |
+| create.defaultFileTemplate   | Template used by default when creating files   | string |
+| create.rememberLastSelection | Remember last selected template                | string |
 
-example:
+Reselect the template:
+![](assets/doc-img/en/reselect-template.png)
+
+## Using
+
+- Create with command :
+Use shortcut keys <kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>p</kbd> Open command panel
+![](./assets/doc-img/en/cmds.png)
+
+- Create in the explorer using the right-click menu:
+![](./assets/doc-img/en/right-click.png)
+
+
+## Template configuration
+
+You can configure `global` and `workspace` templates separately
+
+rule:
+
+- The configuration file must have a default export: `module.exports = { files, folders }`
+- `files` Will be parsed into a list of files
+- `folders` Will be parsed into a list of folders
+- Other fields passed in will be treated as folders
+- Parameters can be passed in via `url search`, such as `? Type = 1` will be parsed into object: `{ type: 1 }`
+
+Here is a simple example, see this [wiki](https://github.com/lanten/create-item-by-template/wiki/Template-Example) for more usage
+
 ```js
-module.exports = {
-  'web-project': (name, config) => {
+/** file list */
+const files = {
+  'Javascript Log': name => {
+    return `console.log('${name}: is created')`
+  },
+}
 
-    // If you input path: ppp/xx-xxx?type=1
-    // You will get arguments: (xx-xxx,{type:'1'})
-
-    const { type } = config
+/** folder list */
+const folders = {
+  // key is template name, value Can be: Function | string | string[]
+  'Web Folder': (name, query, paths) => {
     return {
-      [`${name}.html`]: [
+      // key Is the name of the file to be created, value can be: Function | string | string[]
+      'index.html': [
         `<!DOCTYPE html>`,
         `<html lang="en">`,
         `<head>`,
@@ -43,15 +79,15 @@ module.exports = {
         `  <title>${name}</title>`,
         `</head>`,
         `<body>`,
-        `  ${type ? 'type ' + type : ''}`,
+        `  <p>${JSON.stringify(query)}</p>`,
+        `  <p>${JSON.stringify(paths)}</p>`,
         `</body>`,
         `</html>`,
       ],
-      [`${name}.js`]: [
-        `console.log('${name} ok')`,
-      ]
+      [`${name}.js`]: files['Javascript Log'](name),
     }
   },
 }
-```
 
+module.exports = { files, folders }
+```
