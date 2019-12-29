@@ -33,11 +33,11 @@ Reselect the template:
 
 ## Using
 
-- Create with command :
+#### Create with command :
 Use shortcut keys <kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>p</kbd> Open command panel
 ![](./assets/doc-img/en/cmds.png)
 
-- Create in the explorer using the right-click menu:
+#### Create in the explorer using the right-click menu:
 ![](./assets/doc-img/en/right-click.png)
 
 
