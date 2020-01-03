@@ -14,7 +14,7 @@
   "text.inputBoxPathPlaceholder": "${1}路径",
   "text.inputBoxNamePlaceholder": "${1}名称",
   "text.inputBoxNameTitle": "将使用模板: ${1} 来创建${2}",
-  "text.inputBoxNamePrompt": "点击右上角图标重新选择模板",
+  "text.inputBoxNamePrompt": "点击返回图标重新选择模板",
 
   "text.templateListReselect": "重新选择模板",
   "text.templateListItemDetail": "模板来源: ${1}配置",

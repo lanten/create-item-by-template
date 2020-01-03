@@ -27,8 +27,6 @@
 | create.defaultFileTemplate   | 默认文件模板       | string  | ''     |
 | create.rememberLastSelection | 记住上次选择的模板 | boolean | false  |
 
-重新选择模板：
-![](assets/doc-img/zh-cn/reselect-template.png)
 
 ## 开始使用
 

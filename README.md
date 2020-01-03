@@ -28,8 +28,6 @@ Create multiple files at the same time in a new folder and add custom text
 | create.defaultFileTemplate   | Template used by default when creating files   | string  | ''      |
 | create.rememberLastSelection | Remember last selected template                | boolean | false   |
 
-Reselect the template:
-![](assets/doc-img/en/reselect-template.png)
 
 ## Using
 

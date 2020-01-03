@@ -14,7 +14,7 @@
   "text.inputBoxPathPlaceholder": "${1} path",
   "text.inputBoxNamePlaceholder": "${1} name",
   "text.inputBoxNameTitle": "Will be created ${2} using the template: ${1}",
-  "text.inputBoxNamePrompt": "Click the icon in the upper right corner to reselect",
+  "text.inputBoxNamePrompt": "Click the back icon to reselect the template",
 
   "text.templateListReselect": "Reselect template",
   "text.templateListItemDetail": "Template source: ${1} config",

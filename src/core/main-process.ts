@@ -1,8 +1,8 @@
 import fs from 'fs'
 import path from 'path'
-import vscode, { Uri } from 'vscode'
+import vscode, { Uri, QuickInputButtons } from 'vscode'
 
-import { WORKSPACE_PATH, REG, localize, icons, log, mkdirRecursive, config } from '../utils'
+import { WORKSPACE_PATH, REG, localize, log, mkdirRecursive, config } from '../utils'
 import {
   openListPicker,
   TemplateItem,
@@ -289,17 +289,7 @@ export class Create {
 
       inputBox.title = localize.getLocalize('text.inputBoxNameTitle', item.label, item.typeDesc)
       inputBox.prompt = localize.getLocalize('text.inputBoxNamePrompt')
-      inputBox.buttons = [
-        {
-          // iconPath: Uri.file(global.ctx.asAbsolutePath('assets/icons/back.light.svg')),
-          // iconPath: Uri.file(global.ctx.asAbsolutePath('assets/icons/test.png')),
-          iconPath: {
-            light: icons.back.light,
-            dark: icons.back.dark,
-          },
-          tooltip: localize.getLocalize('text.templateListReselect'),
-        },
-      ]
+      inputBox.buttons = [QuickInputButtons.Back]
 
       // 操作按钮点击事件
       inputBox.onDidTriggerButton(e => {
