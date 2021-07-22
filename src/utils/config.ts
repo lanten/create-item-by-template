@@ -85,6 +85,10 @@ class Config {
           appPath = process.env.HOME + '/.config'
           break
 
+        case 'win32':
+          appPath = process.env.HOME + '\\AppData\\Roaming'
+          break
+
         default:
           appPath = '/var/local'
           break
