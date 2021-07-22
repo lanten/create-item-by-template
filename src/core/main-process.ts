@@ -70,7 +70,7 @@ export class Create {
    * 创建前准备
    * @param loadDefault
    */
-  public async beforeCreate(loadDefault = true): Promise<CreateData | void> {
+  public async beforeCreate(loadDefault?: boolean): Promise<CreateData | void> {
     let item: TemplateItem | undefined
 
     if (loadDefault && this.defaultTemplate) {

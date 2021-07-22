@@ -73,10 +73,27 @@ class Config {
    * @param fileName 文件名
    */
   getGlobalStoragePath(fileName = ''): string {
-    const appPath =
-      process.env.APPDATA ||
-      (process.platform === 'darwin' ? process.env.HOME + '/Library/Application Support' : '/var/local')
+    let appPath = process.env.APPDATA
+
+    if (!appPath) {
+      switch (process.platform) {
+        case 'darwin':
+          appPath = process.env.HOME + '/Library/Application Support'
+          break
+
+        case 'linux':
+          appPath = process.env.HOME + '/.config'
+          break
+
+        default:
+          appPath = '/var/local'
+          break
+      }
+    }
+
     const channelPath = this.getChannelPath()
+
+    console.log(process.env.APPDATA, process.platform, process.env, appPath)
 
     const storagePath = path.join(channelPath, 'User', 'globalStorage', `${PUBLISHER}.${EXT_NAME}`)
     const globalStoragePath = path.join(appPath, storagePath, fileName)
