@@ -97,8 +97,6 @@ class Config {
 
     const channelPath = this.getChannelPath()
 
-    console.log(process.env.APPDATA, process.platform, process.env, appPath)
-
     const storagePath = path.join(channelPath, 'User', 'globalStorage', `${PUBLISHER}.${EXT_NAME}`)
     const globalStoragePath = path.join(appPath, storagePath, fileName)
 
