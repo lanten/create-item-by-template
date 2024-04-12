@@ -1,9 +1,4 @@
 # create-item-by-template
-[![](https://vsmarketplacebadge.apphb.com/version/lanten.create-item-by-template.svg)](https://marketplace.visualstudio.com/items?itemName=lanten.create-item-by-template)
-<!-- [![](https://vsmarketplacebadge.apphb.com/rating-star/lanten.create-item-by-template.svg)](https://marketplace.visualstudio.com/items?itemName=lanten.create-item-by-template) -->
-[![](https://vsmarketplacebadge.apphb.com/installs/lanten.create-item-by-template.svg)](https://marketplace.visualstudio.com/items?itemName=lanten.create-item-by-template)
-[![](https://vsmarketplacebadge.apphb.com/trending-monthly/lanten.create-item-by-template.svg)](https://marketplace.visualstudio.com/items?itemName=lanten.create-item-by-template)
-
 
 This extension can help you quickly create a folder using a template
 
@@ -11,14 +6,12 @@ Create multiple files at the same time in a new folder and add custom text
 
 [中文说明](./README.zh-cn.md)
 
-
 ## Commands
 
 - Create: item by template
 - Create: file by template
 - Create: Edit template (Global)
 - Create: Edit template (Workspace)
-
 
 ## Settings
 
@@ -28,16 +21,15 @@ Create multiple files at the same time in a new folder and add custom text
 | create.defaultFileTemplate   | Template used by default when creating files   | string  | ''      |
 | create.rememberLastSelection | Remember last selected template                | boolean | false   |
 
-
 ## Using
 
 #### Create with command :
-Use shortcut keys <kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>p</kbd> Open command panel
-![](./assets/doc-img/en/cmds.png)
+
+Use shortcut keys <kbd>cmd</kbd> + <kbd>shift</kbd> + <kbd>p</kbd> Open command panel ![](./assets/doc-img/en/cmds.png)
 
 #### Create in the explorer using the right-click menu:
-![](./assets/doc-img/en/right-click.png)
 
+![](./assets/doc-img/en/right-click.png)
 
 ## Template configuration
 

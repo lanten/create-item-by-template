@@ -12,6 +12,7 @@
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
 		"useUnknownInCatchVariables": false,
+		"skipLibCheck": true,
 		"suppressImplicitAnyIndexErrors": true,
 		"lib": [
 			"esnext",
@@ -23,6 +24,6 @@
 		"src/**/*.ts",
 	],
 	"exclude": [
-		"node_modules",
+		"node_modules/**/*",
 	]
 }
