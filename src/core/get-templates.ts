@@ -2,7 +2,14 @@ import path from 'path'
 import fs from 'fs'
 import vscode from 'vscode'
 
-import { TEMPLATE_CONFIG_FILE_NAME, WORKSPACE_PATH, config, requireModule, localize } from '../utils'
+import {
+  TEMPLATE_CONFIG_FILE_NAMES,
+  WORKSPACE_PATH,
+  config,
+  requireModule,
+  localize,
+  tryReadFile,
+} from '../utils'
 
 import { PathH } from './'
 
@@ -44,7 +51,9 @@ export interface TemplateItem extends vscode.QuickPickItem {
  */
 export function getTemplateConfig() {
   const globalStoragePath = config.getGlobalStoragePath()
-  const globalTemplatePath = path.join(globalStoragePath, TEMPLATE_CONFIG_FILE_NAME)
+  const globalTemplatePath =
+    tryReadFile(TEMPLATE_CONFIG_FILE_NAMES.map(fileName => path.join(globalStoragePath, fileName))) ||
+    path.join(globalStoragePath, TEMPLATE_CONFIG_FILE_NAMES[0])
 
   let workspaceConfigPath = ''
   let globalTemplate: TemplateConfig = {}
@@ -57,7 +66,11 @@ export function getTemplateConfig() {
   }
 
   if (WORKSPACE_PATH) {
-    workspaceConfigPath = path.join(WORKSPACE_PATH, '.vscode', TEMPLATE_CONFIG_FILE_NAME)
+    const vscodeConfigFolderPath = path.join(WORKSPACE_PATH || '', '.vscode')
+    workspaceConfigPath =
+      tryReadFile(TEMPLATE_CONFIG_FILE_NAMES.map(fileName => path.join(vscodeConfigFolderPath, fileName))) ||
+      path.join(vscodeConfigFolderPath, TEMPLATE_CONFIG_FILE_NAMES[0])
+
     if (fs.existsSync(workspaceConfigPath)) {
       workspaceTemplate = requireModule(workspaceConfigPath)
       noTemplateFlg = false

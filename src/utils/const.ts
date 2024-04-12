@@ -17,7 +17,7 @@ export const PUBLISHER = packageJson.publisher
 export const LOCAL_CONFIG_PATH = path.join(EXT_PATH, 'local.config.json')
 /** vscode 配置项前缀 */
 export const CONFIG_GROUP = 'create'
-/** 模板配置文件名 */
-export const TEMPLATE_CONFIG_FILE_NAME = 'create-item.template.js'
+/** 模板配置文件名, 顺序尝试，有限使用 cjs */
+export const TEMPLATE_CONFIG_FILE_NAMES = ['create-item.template.cjs', 'create-item.template.js']
 /** 默认模板配置文件路径 */
 export const DEFAULT_TEMPLATE_FILE_PATH = path.join(EXT_PATH, 'templates/new.template.js')

@@ -22,19 +22,27 @@ export function mkdirRecursive(dir: string, inputPath = WORKSPACE_PATH || '', sp
 }
 
 /**
+ * 尝试读取文件
+ * 返回第一个可以读取的文件路径
+ */
+export function tryReadFile(filePathList: string[]): string | void {
+  for (const filePath of filePathList) {
+    if (fs.existsSync(filePath)) {
+      return filePath
+    }
+  }
+}
+
+/**
  * 动态导入一个 JS 文件
  * @param modulePath 要导入的文件路径
  */
 export function requireModule(modulePath: string) {
-  try {
-    const m = require(modulePath)
-    setTimeout(() => {
-      delete require.cache[require.resolve(modulePath)]
-    }, 200)
-    return m
-  } catch (error) {
-    throw new Error(error)
-  }
+  const m = require(modulePath)
+  setTimeout(() => {
+    delete require.cache[require.resolve(modulePath)]
+  }, 200)
+  return m
 }
 
 /**
